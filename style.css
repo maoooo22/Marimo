@@ -1,29 +1,40 @@
-/* style.css */
 body {
-  font-family: sans-serif;
-  background: #f7f7f7;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f4f4;
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
-nav {
-  background: #333;
-  padding: 12px;
-  text-align: center;
-}
-
-nav a {
+header {
+  background-color: #242424;
   color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-main {
-  padding: 40px;
   text-align: center;
+  padding: 60px 20px;
+}
+
+section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.projects ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.projects li {
+  background: white;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
