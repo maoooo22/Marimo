@@ -23,8 +23,8 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid #222;
+  backdrop-filter: blur(8px);
 }
 .logo {
   font-size: 1.5rem;
@@ -44,6 +44,20 @@ body {
 }
 .nav-links li a:hover {
   color: #00ffe5;
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: #fff;
+  border-radius: 2px;
 }
 
 /* HERO SECTION */
@@ -131,7 +145,7 @@ footer {
   color: #999;
 }
 
-/* ANIMASI SCROLL */
+/* ANIMASI */
 .fade-in {
   opacity: 0;
   transform: translateY(40px);
@@ -147,10 +161,27 @@ footer {
   .hero-title {
     font-size: 2.2rem;
   }
+
   .nav-links {
-    display: none; /* nanti bisa diganti hamburger menu */
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #181818;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
   }
-  .project-card {
-    width: 90%;
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: flex;
   }
 }
