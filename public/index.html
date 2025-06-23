@@ -2,24 +2,10 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portofolio Marimo</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/style.css" />
-  <style>
-    #rotating-text {
-      font-family: monospace;
-      transition: opacity 0.3s ease-in-out;
-    }
-    .fade {
-      opacity: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -27,102 +13,82 @@
   <nav class="navbar">
     <div class="logo">Marimo</div>
     <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links" id="navMenu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#contact">Kontak</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero hero-style">
+  <!-- Hero -->
+  <section class="hero-style" id="home">
     <div class="hero-content">
-      <h1 class="main-title">
-        HI, I'M MARIMO!<br />
-        <span id="rotating-text" class="highlight">PLAYER ROBLOX</span>
-      </h1>
-      <p class="hero-desc">
-        Pelajar SMP dari Bekasi yang suka main Roblox dan ngoding web sendiri pakai HTML, CSS, dan JavaScript.
-      </p>
+      <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text">WEB CODE</span></h1>
+      <p class="hero-desc">Seorang pelajar SMP dari Bekasi yang hobi ngulik website dan bikin project seru.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
-  </header>
-
-  <!-- About -->
-  <section id="about" class="section fade-in">
-    <h2>Tentang Saya</h2>
-    <p>Hai! Gue Marimo, duduk di bangku SMP dari Serang Baru, Bekasi. Gue tertarik sama dunia pemrograman website dan hobi explore HTML, CSS, & JavaScript.</p>
   </section>
 
-  <!-- Projects -->
-  <section id="projects" class="section">
+  <!-- Tentang -->
+  <section class="section" id="about">
+    <h2>Tentang Saya</h2>
+    <p>Saya adalah pelajar SMP dari Serang Baru, Bekasi. Saya tertarik dengan dunia pengembangan web, eksperimen dengan desain dan backend API. Saya senang belajar dan eksplorasi hal baru yang bisa bikin web jadi interaktif dan seru.</p>
+  </section>
+
+  <!-- Proyek -->
+  <section class="section" id="projects">
     <h2>Proyek Unggulan</h2>
     <div class="projects-container">
+
+      <!-- NGL Bot -->
       <div class="project-card">
+        <img src="https://cdn.discordapp.com/attachments/1239733874878339093/1254644774370136124/ngl-bot-preview.png?ex=666539b3&is=6663e833&hm=6457f69f17734c267a169c5502c5b6d538b3d302cba6c4fc18edb3eb18dc56de&" 
+             alt="Tampilan NGL Bot" 
+             style="width:100%; border-radius:10px; margin-bottom:15px;" />
         <h3>NGL Bot</h3>
-        <p>Web spam bot otomatis untuk NGL menggunakan fetch + API backend.</p>
+        <p>
+          Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
+          Fitur unggulannya meliputi:
+        </p>
+        <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
+          <li>✅ Custom pesan teks atau puisi otomatis</li>
+          <li>✅ Input username & jumlah pesan</li>
+          <li>✅ Backend fetch API langsung dari browser</li>
+          <li>✅ Tampilan clean dan responsif</li>
+        </ul>
+        <p style="margin-top: 10px;">Web: <a href="https://n-inky.vercel.app" target="_blank">n-inky.vercel.app</a></p>
       </div>
-      <div class="project-card">
-        <h3>Random Poem API</h3>
-        <p>API puisi romantis acak yang bisa diakses dari WhatsApp bot.</p>
-      </div>
-      <div class="project-card">
-        <h3>Hyuraa.my.id</h3>
-        <p>Website HTML statis dengan animasi, pakai domain murah custom.</p>
-      </div>
+
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="section fade-in">
-    <h2>Kontak</h2>
-    <p>Email: <a href="mailto:justmarimo@gmail.com">justmarimo@gmail.com</a></p>
+  <!-- Kontak -->
+  <section class="section" id="contact">
+    <h2>Kontak Saya</h2>
     <p>Instagram: <a href="https://instagram.com/marimo_2553" target="_blank">@marimo_2553</a></p>
     <p>Telegram: <a href="https://t.me/maoo_2553" target="_blank">@maoo_2553</a></p>
   </section>
 
-  <!-- Footer -->
   <footer>
-    <p>© 2025 Marimo. Dibuat dengan <i class="fa-solid fa-code"></i> dan semangat belajar.</p>
+    &copy; 2025 Marimo. Dibuat dengan hati ❤️
   </footer>
 
-  <!-- Scripts -->
   <script>
+    // Toggle menu
     function toggleMenu() {
-      const nav = document.getElementById("navLinks");
-      nav.classList.toggle("show");
+      document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Scroll animasi
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('appear');
-        }
-      });
-    });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // Ganti teks tiap 2.5 detik
-    const words = ["PLAYER ROBLOX", "WEB CODE"];
-    let index = 0;
-    const textEl = document.getElementById("rotating-text");
-
+    // Teks berganti
+    const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER"];
+    let i = 0;
     setInterval(() => {
-      textEl.classList.remove("fade");
-      void textEl.offsetWidth; // reset animation
-      textEl.classList.add("fade");
-
-      setTimeout(() => {
-        textEl.textContent = words[index];
-        index = (index + 1) % words.length;
-        textEl.classList.remove("fade");
-      }, 300); // waktu fade out
-    }, 2500);
+      document.getElementById("type-text").textContent = words[i];
+      i = (i + 1) % words.length;
+    }, 2000);
   </script>
 
 </body>
