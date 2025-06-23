@@ -103,7 +103,7 @@
     });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Animasi Ketik
+    // Animasi Ketik - Fix Huruf Terakhir Tampil
     const words = ["PLAYER ROBLOX", "WEB CODE"];
     let wordIndex = 0;
     let charIndex = 0;
@@ -112,24 +112,31 @@
 
     function type() {
       const currentWord = words[wordIndex];
+
       if (isDeleting) {
         typedText.textContent = currentWord.substring(0, charIndex--);
       } else {
         typedText.textContent = currentWord.substring(0, charIndex++);
       }
 
+      // Jeda saat selesai mengetik kata sebelum menghapus
       if (!isDeleting && charIndex === currentWord.length) {
         setTimeout(() => {
           isDeleting = true;
-          type();
         }, 1200);
-      } else if (isDeleting && charIndex === 0) {
+        setTimeout(type, 1200);
+        return;
+      }
+
+      // Jeda saat selesai menghapus sebelum mengetik kata berikutnya
+      if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % words.length;
         setTimeout(type, 300);
-      } else {
-        setTimeout(type, isDeleting ? 50 : 100);
+        return;
       }
+
+      setTimeout(type, isDeleting ? 50 : 100);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
