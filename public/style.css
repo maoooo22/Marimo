@@ -1,4 +1,4 @@
-/* Base */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -47,7 +47,7 @@ body {
   color: #00ffe5;
 }
 
-/* Hamburger */
+/* Hamburger Menu */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -61,7 +61,6 @@ body {
   background: white;
 }
 
-/* Responsive nav */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -106,25 +105,8 @@ body {
   line-height: 1.3;
 }
 
-.main-title .line {
-  display: block;
-  opacity: 0;
-  transform: translateY(40px);
-  animation: slideUp 0.6s forwards;
-}
-
-.main-title .line:nth-child(2) {
-  animation-delay: 0.3s;
-}
-.main-title .line:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
 .highlight {
   color: #00ffe5;
-}
-.highlight2 {
-  color: #00ffa2;
 }
 
 .hero-desc {
@@ -133,6 +115,18 @@ body {
   margin-bottom: 30px;
   animation: fadeIn 1.5s ease-in-out 0.8s forwards;
   opacity: 0;
+}
+
+/* Typing Animation */
+.cursor {
+  display: inline-block;
+  color: #00ffe5;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Button */
@@ -189,7 +183,7 @@ body {
   color: #ccc;
 }
 
-/* Contact links */
+/* Contact & Footer */
 a {
   color: #00ffe5;
   text-decoration: none;
@@ -198,7 +192,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Footer */
 footer {
   padding: 30px;
   text-align: center;
@@ -207,14 +200,7 @@ footer {
   color: #aaa;
 }
 
-/* Animations */
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Scroll Animation */
 @keyframes fadeIn {
   to {
     opacity: 1;
