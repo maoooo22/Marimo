@@ -27,7 +27,7 @@
   <section class="hero-style" id="home">
     <div class="hero-content">
       <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text">WEB CODE</span></h1>
-      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
+      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, Bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
   </section>
@@ -40,7 +40,7 @@
 
   <!-- Proyek -->
   <section class="section" id="projects">
-    <h2>Project marimoo</h2>
+    <h2>Project Marimoo</h2>
     <div class="projects-container">
 
       <!-- NGL Bot -->
@@ -54,7 +54,7 @@
           Fitur unggulannya meliputi:
         </p>
         <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
-          <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
+          <li>✅ Custom pesan teks dan bisa diatur jumlahnya</li>
           <li>✅ Input username & jumlah pesan</li>
           <li>✅ Backend fetch API langsung dari browser</li>
           <li>✅ Tampilan clean dan responsif</li>
@@ -77,36 +77,18 @@
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
   </footer>
 
-  <!-- Gambar bendera -->
-  <img id="bendera-indo-img" src="bendera.jpg" alt="Bendera Indonesia" style="display: none;">
-
-  <!-- Script -->
   <script>
-    // Toggle menu
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Text type animation
+    // Animasi teks
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let i = 0;
     setInterval(() => {
       document.getElementById("type-text").textContent = words[i];
       i = (i + 1) % words.length;
     }, 2000);
-
-    // Bendera muncul saat scroll ke bawah
-    const benderaImg = document.getElementById("bendera-indo-img");
-    window.addEventListener("scroll", () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const bodyHeight = document.body.offsetHeight;
-      if (scrollY + windowHeight >= bodyHeight - 50) {
-        benderaImg.style.display = "block";
-      } else {
-        benderaImg.style.display = "none";
-      }
-    });
   </script>
 
 </body>
