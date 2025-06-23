@@ -6,7 +6,6 @@
   <title>Portofolio Marimo</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -19,7 +18,6 @@
     <ul class="nav-links" id="navMenu">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">Tentang</a></li>
-      <li><a href="#skills">Skill</a></li>
       <li><a href="#projects">Proyek</a></li>
       <li><a href="#contact">Kontak</a></li>
     </ul>
@@ -40,43 +38,12 @@
     <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
   </section>
 
-  <!-- Skill -->
-  <section class="section" id="skills">
-    <h2>Skill Saya</h2>
-
-    <div class="skill">
-      <span><i class="fab fa-html5"></i> HTML</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 83%">83%</div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <span><i class="fab fa-css3-alt"></i> CSS</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 80%">80%</div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <span><i class="fab fa-js-square"></i> JavaScript</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 70%">70%</div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <span><i class="fab fa-python"></i> Python</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 75%">75%</div>
-      </div>
-    </div>
-  </section>
-
   <!-- Proyek -->
   <section class="section" id="projects">
     <h2>Project marimoo</h2>
     <div class="projects-container">
+
+      <!-- NGL Bot -->
       <div class="project-card">
         <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
              alt="Tampilan NGL Bot" 
@@ -94,6 +61,7 @@
         </ul>
         <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
       </div>
+
     </div>
   </section>
 
@@ -102,17 +70,15 @@
     <h2>Kontak Saya</h2>
     <p>Instagram: <a href="https://instagram.com/marimo_2553" target="_blank">Klik di sini</a></p>
     <p>Telegram: <a href="https://t.me/maoo_2553" target="_blank">Klik di sini</a></p>
-    <p>TikTok: <a href="https://www.tiktok.com/@galngpremium0" target="_blank">Klik di sini</a></p>
+    <p>TikTok: <a href="https://tiktok.com/@galngpremium0" target="_blank">Klik di sini</a></p>
   </section>
 
   <footer>
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
   </footer>
 
-  <!-- Bendera Indonesia -->
-  <div id="bendera-indo" style="display: none;">
-    🇮🇩
-  </div>
+  <!-- Gambar bendera -->
+  <img id="bendera-indo-img" src="bendera.jpg" alt="Bendera Indonesia" style="display: none;">
 
   <!-- Script -->
   <script>
@@ -121,7 +87,7 @@
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Teks berganti
+    // Text type animation
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let i = 0;
     setInterval(() => {
@@ -129,18 +95,16 @@
       i = (i + 1) % words.length;
     }, 2000);
 
-    // Tampilkan bendera saat scroll ke bawah
-    const bendera = document.getElementById("bendera-indo");
-
+    // Bendera muncul saat scroll ke bawah
+    const benderaImg = document.getElementById("bendera-indo-img");
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const bodyHeight = document.body.offsetHeight;
-
       if (scrollY + windowHeight >= bodyHeight - 50) {
-        bendera.style.display = "block";
+        benderaImg.style.display = "block";
       } else {
-        bendera.style.display = "none";
+        benderaImg.style.display = "none";
       }
     });
   </script>
