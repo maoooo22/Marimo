@@ -39,7 +39,7 @@
     <div class="hero-content">
       <h1 class="main-title">
         HI, I'M MARIMO!<br />
-        <span id="typed-text" class="highlight"></span><span class="cursor">▋</span>
+        <span id="typed-text" class="highlight"></span>
       </h1>
       <p class="hero-desc">
         Pelajar SMP dari Bekasi yang suka main Roblox dan ngoding web sendiri pakai HTML, CSS, dan JavaScript.
@@ -93,7 +93,7 @@
       nav.classList.toggle("show");
     }
 
-    // Scroll Animasi
+    // Scroll Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -103,7 +103,7 @@
     });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Animasi Ketik FIX
+    // Animasi Ketik
     const words = ["PLAYER ROBLOX", "WEB CODE"];
     let wordIndex = 0;
     let charIndex = 0;
@@ -122,7 +122,7 @@
         setTimeout(() => {
           isDeleting = true;
           type();
-        }, 1200); // delay setelah selesai ngetik
+        }, 1200);
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % words.length;
