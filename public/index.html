@@ -8,7 +8,7 @@
   <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  
+
   <!-- CSS -->
   <link rel="stylesheet" href="/style.css" />
 </head>
@@ -33,12 +33,11 @@
   <header class="hero hero-style">
     <div class="hero-content">
       <h1 class="main-title">
-        <span class="line">HI, I'M MARIMO!</span>
-        <span class="line highlight">PLAYER ROBLOX</span>
-        <span class="line highlight2">WEB CODE</span>
+        HI, I'M MARIMO!<br />
+        <span id="typed-text" class="highlight"></span><span class="cursor">▋</span>
       </h1>
       <p class="hero-desc">
-        Seorang pelajar SMP dari Bekasi yang suka dunia Roblox dan ngulik website sendiri pakai HTML, CSS, dan JavaScript.
+        Seorang pelajar SMP dari Bekasi yang suka dunia Roblox dan ngulik website pakai HTML, CSS, dan JavaScript.
       </p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
@@ -82,13 +81,14 @@
     <p>© 2025 Marimo. Dibuat dengan <i class="fa-solid fa-code"></i> dan semangat belajar.</p>
   </footer>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     function toggleMenu() {
       const nav = document.getElementById("navLinks");
       nav.classList.toggle("show");
     }
 
+    // Animasi scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -97,6 +97,37 @@
       });
     });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Animasi ketik
+    const words = ["PLAYER ROBLOX", "WEB CODE", "SISWA SMP", "ASTRONOMI FAN"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedText = document.getElementById("typed-text");
+
+    function type() {
+      const currentWord = words[wordIndex];
+      if (isDeleting) {
+        typedText.textContent = currentWord.substring(0, charIndex--);
+      } else {
+        typedText.textContent = currentWord.substring(0, charIndex++);
+      }
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        setTimeout(type, 1000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(type, 300);
+      } else {
+        setTimeout(type, isDeleting ? 50 : 100);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      type();
+    });
   </script>
 
 </body>
