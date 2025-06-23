@@ -148,7 +148,7 @@ footer {
     font-size: 2.2rem;
   }
   .nav-links {
-    display: none; /* Bisa diganti jadi hamburger menu nanti */
+    display: none; /* bisa ganti ke hamburger kalau mau */
   }
   .project-card {
     width: 90%;
