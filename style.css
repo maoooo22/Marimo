@@ -1,4 +1,4 @@
-/* Reset & font */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   line-height: 1.6;
 }
 
-/* Navbar */
+/* NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
@@ -46,7 +46,7 @@ body {
   color: #00ffe5;
 }
 
-/* Hero */
+/* HERO SECTION */
 .hero {
   height: 100vh;
   display: flex;
@@ -83,7 +83,7 @@ body {
   background: #00e6cc;
 }
 
-/* Sections */
+/* SECTION */
 .section {
   padding: 100px 20px;
   max-width: 1000px;
@@ -99,7 +99,7 @@ body {
   color: #ccc;
 }
 
-/* Projects */
+/* PROJECTS */
 .projects-container {
   display: flex;
   flex-wrap: wrap;
@@ -123,7 +123,7 @@ body {
   color: #00ffe5;
 }
 
-/* Footer */
+/* FOOTER */
 footer {
   text-align: center;
   padding: 40px 20px;
@@ -131,7 +131,7 @@ footer {
   color: #999;
 }
 
-/* Fade-in animation */
+/* ANIMASI SCROLL */
 .fade-in {
   opacity: 0;
   transform: translateY(40px);
@@ -142,13 +142,13 @@ footer {
   transform: translateY(0);
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.2rem;
   }
   .nav-links {
-    display: none; /* bisa ganti ke hamburger kalau mau */
+    display: none; /* nanti bisa diganti hamburger menu */
   }
   .project-card {
     width: 90%;
