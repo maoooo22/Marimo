@@ -1,72 +1,86 @@
-<!DOCTYPE html><html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portofolio Marimo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="overlay"></div>
-    <nav class="navbar">
-      <div class="logo">Marimo</div>
-      <ul class="nav-links">
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#projects">Proyek</a></li>
-        <li><a href="#contact">Kontak</a></li>
-      </ul>
-    </nav><header class="hero">
-  <h1 class="hero-title">Halo, Saya <span>Marimo</span></h1>
-  <p class="hero-subtitle">Web Developer | Creative Coder</p>
-  <a href="#projects" class="btn-primary">Lihat Proyek</a>
-</header>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio Marimo</title>
 
-<section id="about" class="section fade-in">
-  <h2>Tentang Saya</h2>
-  <p>Saya seorang pengembang web yang tertarik dengan desain interaktif dan animasi web. Saya senang menggabungkan kreativitas dan teknologi.</p>
-</section>
+  <!-- Google Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-<section id="projects" class="section">
-  <h2>Proyek Unggulan</h2>
-  <div class="projects-container">
-    <div class="project-card">
-      <h3>NGL Bot</h3>
-      <p>Web spam bot otomatis untuk NGL menggunakan fetch + API backend.</p>
+  <!-- Link CSS (penting!) -->
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Marimo</div>
+    <ul class="nav-links">
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#projects">Proyek</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1 class="hero-title">Halo, Saya <span>Marimo</span></h1>
+    <p class="hero-subtitle">Web Developer | Creative Coder</p>
+    <a href="#projects" class="btn-primary">Lihat Proyek</a>
+  </header>
+
+  <!-- Tentang -->
+  <section id="about" class="section fade-in">
+    <h2>Tentang Saya</h2>
+    <p>Saya seorang pengembang web yang tertarik dengan desain interaktif dan animasi. Saya senang menggabungkan kreativitas dan teknologi untuk membuat web keren dan fungsional.</p>
+  </section>
+
+  <!-- Proyek -->
+  <section id="projects" class="section">
+    <h2>Proyek Unggulan</h2>
+    <div class="projects-container">
+      <div class="project-card">
+        <h3>NGL Bot</h3>
+        <p>Web spam bot otomatis untuk NGL menggunakan fetch + API backend.</p>
+      </div>
+      <div class="project-card">
+        <h3>Random Poem API</h3>
+        <p>API generator puisi romantis acak yang bisa diakses dari WhatsApp bot.</p>
+      </div>
+      <div class="project-card">
+        <h3>Hyuraa.my.id</h3>
+        <p>Website HTML statis dengan animasi modern dan domain custom murah meriah.</p>
+      </div>
     </div>
-    <div class="project-card">
-      <h3>Random Poem API</h3>
-      <p>API generator puisi romantis acak yang bisa diakses dari WhatsApp bot.</p>
-    </div>
-    <div class="project-card">
-      <h3>Hyuraa.my.id</h3>
-      <p>Website HTML statis dengan animasi modern dan domain custom murah meriah.</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact" class="section fade-in">
-  <h2>Kontak</h2>
-  <p>Email: justmarimo@gmail.com</p>
-  <p>Instagram: <a href="https://instagram.com/marimo.dev" target="_blank">@marimo.dev</a></p>
-</section>
+  <!-- Kontak -->
+  <section id="contact" class="section fade-in">
+    <h2>Kontak</h2>
+    <p>Email: <a href="mailto:justmarimo@gmail.com">justmarimo@gmail.com</a></p>
+    <p>Instagram: <a href="https://instagram.com/marimo.dev" target="_blank">@marimo.dev</a></p>
+  </section>
 
-<footer>
-  <p>© 2025 Marimo. Dibuat dengan <i class="fa-solid fa-code"></i> dan semangat.</p>
-</footer>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Marimo. Dibuat dengan <i class="fa-solid fa-code"></i> dan semangat.</p>
+  </footer>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('appear');
-      }
+  <!-- Animasi scroll JS -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('appear');
+        }
+      });
     });
-  });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
 
-  </body>
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
 </html>
