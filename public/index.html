@@ -18,28 +18,34 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">Marimo</div>
-    <ul class="nav-links">
-      <li><a href="#about">Tentang</a></li>
-      <li><a href="#projects">Proyek</a></li>
-      <li><a href="#contact">Kontak</a></li>
+
+    <!-- Hamburger menu -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <header class="hero">
-    <h1 class="hero-title">Halo, nama asli saya <span>Marimo</span></h1>
-    <p class="hero-subtitle">Web Developer | Creative Coder</p>
+    <h1 class="hero-title">Halo, Saya <span>Marimo</span></h1>
+    <p class="hero-subtitle">Web Developer | Pelajar SMP</p>
     <a href="#projects" class="btn-primary">Lihat Proyek</a>
   </header>
 
   <!-- Tentang -->
   <section id="about" class="section fade-in">
     <h2>Tentang Saya</h2>
-    <p>Hai! Nama gue Marimo, anak SMP dari Serang Baru, Bekasi.
-Gue suka banget sama sains, astronomi, dan segala hal yang berhubungan sama IPA. Tapi akhir-akhir ini, gue juga mulai jatuh cinta sama dunia per-website-an.
-
-Menurut gue, bikin website itu seru — kaya ngerakit dunia kecil dari barisan kode. Gue lagi semangat belajar HTML, CSS, dan hal-hal baru soal teknologi biar makin jago.
-Pokoknya, gue pengin terus eksplor dan berkembang lewat hal-hal yang gue suka. .</p>
+    <p>Hai! Nama gue <strong>Marimo</strong>, anak SMP dari <strong>Serang Baru, Bekasi</strong>.<br />
+    Gue suka banget sama <strong>sains, astronomi, dan IPA</strong>. Tapi akhir-akhir ini, gue juga mulai jatuh cinta sama dunia <strong>per-website-an</strong>.<br />
+    Menurut gue, bikin website itu seru — kaya ngerakit dunia kecil dari barisan kode. Gue lagi semangat belajar HTML, CSS, dan teknologi biar makin jago.</p>
   </section>
 
   <!-- Proyek -->
@@ -73,8 +79,13 @@ Pokoknya, gue pengin terus eksplor dan berkembang lewat hal-hal yang gue suka. .
     <p>© 2025 Marimo. Dibuat dengan <i class="fa-solid fa-code"></i> dan semangat.</p>
   </footer>
 
-  <!-- Animasi scroll JS -->
+  <!-- Animasi scroll -->
   <script>
+    function toggleMenu() {
+      const nav = document.getElementById("navLinks");
+      nav.classList.toggle("show");
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
