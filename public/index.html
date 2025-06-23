@@ -12,8 +12,12 @@
   <!-- CSS -->
   <link rel="stylesheet" href="/style.css" />
   <style>
-    #typed-text {
+    #rotating-text {
       font-family: monospace;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .fade {
+      opacity: 0;
     }
   </style>
 </head>
@@ -39,7 +43,7 @@
     <div class="hero-content">
       <h1 class="main-title">
         HI, I'M MARIMO!<br />
-        <span id="typed-text" class="highlight"></span>
+        <span id="rotating-text" class="highlight">PLAYER ROBLOX</span>
       </h1>
       <p class="hero-desc">
         Pelajar SMP dari Bekasi yang suka main Roblox dan ngoding web sendiri pakai HTML, CSS, dan JavaScript.
@@ -93,7 +97,7 @@
       nav.classList.toggle("show");
     }
 
-    // Scroll Animation
+    // Scroll animasi
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -103,45 +107,22 @@
     });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Animasi Ketik - Fix Huruf Terakhir Tampil
+    // Ganti teks tiap 2.5 detik
     const words = ["PLAYER ROBLOX", "WEB CODE"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typedText = document.getElementById("typed-text");
+    let index = 0;
+    const textEl = document.getElementById("rotating-text");
 
-    function type() {
-      const currentWord = words[wordIndex];
+    setInterval(() => {
+      textEl.classList.remove("fade");
+      void textEl.offsetWidth; // reset animation
+      textEl.classList.add("fade");
 
-      if (isDeleting) {
-        typedText.textContent = currentWord.substring(0, charIndex--);
-      } else {
-        typedText.textContent = currentWord.substring(0, charIndex++);
-      }
-
-      // Jeda saat selesai mengetik kata sebelum menghapus
-      if (!isDeleting && charIndex === currentWord.length) {
-        setTimeout(() => {
-          isDeleting = true;
-        }, 1200);
-        setTimeout(type, 1200);
-        return;
-      }
-
-      // Jeda saat selesai menghapus sebelum mengetik kata berikutnya
-      if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(type, 300);
-        return;
-      }
-
-      setTimeout(type, isDeleting ? 50 : 100);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      type();
-    });
+      setTimeout(() => {
+        textEl.textContent = words[index];
+        index = (index + 1) % words.length;
+        textEl.classList.remove("fade");
+      }, 300); // waktu fade out
+    }, 2500);
   </script>
 
 </body>
