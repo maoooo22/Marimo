@@ -11,6 +11,11 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="/style.css" />
+  <style>
+    #typed-text {
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
 
@@ -98,7 +103,7 @@
     });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // Animasi Ketik
+    // Animasi Ketik FIX
     const words = ["PLAYER ROBLOX", "WEB CODE"];
     let wordIndex = 0;
     let charIndex = 0;
@@ -114,8 +119,10 @@
       }
 
       if (!isDeleting && charIndex === currentWord.length) {
-        isDeleting = true;
-        setTimeout(type, 1000);
+        setTimeout(() => {
+          isDeleting = true;
+          type();
+        }, 1200); // delay setelah selesai ngetik
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % words.length;
