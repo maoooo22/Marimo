@@ -6,13 +6,13 @@
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: #f8f9fa;
-  color: #222;
+  background-color: #111;
+  color: #fff;
   line-height: 1.6;
 }
 
 a {
-  color: #007bff;
+  color: #1e90ff;
   text-decoration: none;
 }
 
@@ -24,9 +24,9 @@ nav.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #222;
   padding: 15px 25px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(255,255,255,0.05);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -35,7 +35,7 @@ nav.navbar {
 .logo {
   font-weight: 800;
   font-size: 1.4rem;
-  color: #333;
+  color: #fff;
 }
 
 .nav-links {
@@ -46,7 +46,7 @@ nav.navbar {
 
 .nav-links li a {
   font-weight: 500;
-  color: #444;
+  color: #fff;
 }
 
 .hamburger {
@@ -59,13 +59,13 @@ nav.navbar {
 .hamburger span {
   height: 3px;
   width: 25px;
-  background: #333;
+  background: #fff;
   border-radius: 3px;
 }
 
 /* Hero */
 .hero-style {
-  background: linear-gradient(120deg, #007bff, #00c6ff);
+  background: #111;
   color: #fff;
   text-align: center;
   padding: 80px 20px;
@@ -87,18 +87,19 @@ nav.navbar {
   margin-top: 10px;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #ffe600;
+  color: #00ffcc;
 }
 
 .hero-desc {
   margin: 20px 0;
   font-size: 1rem;
+  color: #ccc;
 }
 
 .btn-primary {
   display: inline-block;
-  background: #fff;
-  color: #007bff;
+  background: #00ffcc;
+  color: #111;
   padding: 10px 20px;
   border-radius: 25px;
   font-weight: 600;
@@ -106,7 +107,7 @@ nav.navbar {
 }
 
 .btn-primary:hover {
-  background: #e0e0e0;
+  background: #00ddb5;
 }
 
 /* Section umum */
@@ -124,7 +125,7 @@ nav.navbar {
 
 .section p {
   font-size: 1rem;
-  color: #444;
+  color: #ccc;
 }
 
 /* Projects */
@@ -136,10 +137,10 @@ nav.navbar {
 }
 
 .project-card {
-  background: #fff;
+  background: #1a1a1a;
   padding: 25px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   transition: 0.3s ease;
 }
 
@@ -154,17 +155,17 @@ nav.navbar {
   display: block;
   margin: 0 auto 20px auto;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
 }
 
 /* Footer */
 footer {
-  background: #eee;
+  background: #111;
   padding: 20px;
   text-align: center;
   font-size: 0.9rem;
-  color: #555;
+  color: #777;
   margin-top: 40px;
 }
 
@@ -172,14 +173,14 @@ footer {
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
-    background: #fff;
+    background: #222;
     position: absolute;
     top: 65px;
     right: 0;
     width: 200px;
     display: none;
     padding: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
   }
 
   .nav-links.show {
