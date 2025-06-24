@@ -190,22 +190,20 @@ nav.navbar {
   transition: width 1s ease-in-out;
 }
 
-.skill:nth-child(1) .skill-fill {
-  background: #e44d26; /* HTML5 Orange */
+.skill i.fa-html5 {
+  color: #e34c26; /* merah oranye khas HTML */
 }
 
-.skill:nth-child(2) .skill-fill {
-  background: #2965f1; /* CSS Blue */
+.skill i.fa-css3-alt {
+  color: #264de4; /* biru khas CSS */
 }
 
-.skill:nth-child(3) .skill-fill {
-  background: #f0db4f; /* JavaScript Yellow */
-  color: #000;
+.skill i.fa-js-square {
+  color: #f0db4f; /* kuning khas JavaScript */
 }
 
-.skill:nth-child(4) .skill-fill {
-  background: #3572A5; /* Python Blue */
-  color: #fff;
+.skill i.fa-python {
+  color: #4B8BBE; /* biru khas Python */
 }
 
 /* Footer */
