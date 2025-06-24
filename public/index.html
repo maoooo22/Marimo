@@ -28,13 +28,8 @@
   <!-- Hero -->
   <section class="hero-style" id="home">
     <div class="hero-content">
-      <h1 class="main-title">
-        HI, I'M MARIMO<br>
-        <span class="highlight" id="type-text">PLAYER ROBLOX</span>
-      </h1>
-      <p class="hero-desc">
-        Hi gue adalah marimo, gua sekarang duduk di bangku SMP. Gua tinggal di Indonesia, Bekasi, dan gua udah berhasil ngebuat project.
-      </p>
+      <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text"></span></h1>
+      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
   </section>
@@ -45,10 +40,10 @@
     <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
   </section>
 
-  <!-- Media Sosial (DIPINDAH) -->
+  <!-- Kontak (dikosongkan seperti permintaan) -->
   <section class="section" id="contact">
     <h2>Media Sosial</h2>
-    <!-- Konten akan ditambahkan nanti -->
+    <!-- Kosong -->
   </section>
 
   <!-- Skill -->
@@ -56,28 +51,28 @@
     <h2>Skill Saya</h2>
 
     <div class="skill">
-      <span><i class="fab fa-html5" style="color: orange;"></i> HTML</span>
+      <span><i class="fab fa-html5" style="color:#e34c26;"></i> HTML</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 83%">83%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-css3-alt" style="color: #00d9ff;"></i> CSS</span>
+      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 80%">80%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-js-square" style="color: yellow;"></i> JavaScript</span>
+      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 70%">70%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-python" style="color: #3d9be9;"></i> Python</span>
+      <span><i class="fab fa-python" style="color:#4B8BBE;"></i> Python</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 75%">75%</div>
       </div>
@@ -86,19 +81,17 @@
 
   <!-- Proyek -->
   <section class="section" id="projects">
-    <h2>Project Marimoo</h2>
+    <h2>Project marimoo</h2>
     <div class="projects-container">
       <div class="project-card">
-        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
-             alt="Tampilan NGL Bot" 
-             class="ngl-image" />
+        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="ngl-image" />
         <h3>NGL Bot</h3>
         <p>
           Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
           Fitur unggulannya meliputi:
         </p>
         <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
-          <li>✅ Custom pesan teks dan bisa diatur jumlahnya</li>
+          <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
           <li>✅ Input username & jumlah pesan</li>
           <li>✅ Backend fetch API langsung dari browser</li>
           <li>✅ Tampilan clean dan responsif</li>
@@ -113,20 +106,38 @@
   </footer>
 
   <script>
-    // Toggle menu
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Typing effect teks
     const typeText = document.getElementById("type-text");
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
 
-    setInterval(() => {
-      typeText.textContent = words[wordIndex];
-      wordIndex = (wordIndex + 1) % words.length;
-    }, 2000);
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (!isDeleting && charIndex < currentWord.length) {
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+      } else if (isDeleting && charIndex > 0) {
+        typeText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        isDeleting = !isDeleting;
+        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+        typingSpeed = 500;
+      }
+
+      setTimeout(type, typingSpeed);
+    }
+
+    type();
   </script>
 
 </body>
