@@ -79,11 +79,9 @@ nav.navbar {
 
 .highlight {
   color: #00ffee;
-  font-size: 2.2rem;
-  display: block;
-  margin-top: 10px;
 }
 
+/* Hero Description */
 .hero-desc {
   margin: 20px 0;
   font-size: 1.1rem;
@@ -127,7 +125,7 @@ nav.navbar {
   margin: 0 auto;
 }
 
-/* Projects */
+/* Project */
 .projects-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -156,7 +154,7 @@ nav.navbar {
   margin-bottom: 15px;
 }
 
-/* Skills */
+/* Skill Bar */
 #skills .skill {
   margin: 20px auto;
   max-width: 500px;
@@ -172,11 +170,10 @@ nav.navbar {
 }
 
 .skill-bar {
-  background: #333;
+  background: #444;
   height: 20px;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 10px;
 }
 
 .skill-fill {
@@ -186,47 +183,48 @@ nav.navbar {
   padding-right: 10px;
   color: #111;
   font-weight: 600;
+  border-radius: 10px 0 0 10px;
   transition: width 1s ease-in-out;
 }
 
-/* Contact / Sosial */
+/* Sosial Media Section */
 .social-container {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+  position: relative;
 }
 
 .social-icon {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  transition: transform 0.4s ease;
-  position: relative;
-}
-
-.social-icon:hover {
-  transform: translateY(-5px);
-}
-
-.username {
-  opacity: 0;
-  transform: translateX(-20px);
+  gap: 10px;
+  background: #222;
+  padding: 10px 15px;
+  border-radius: 30px;
   transition: all 0.4s ease;
-  margin-top: 8px;
+  cursor: pointer;
+}
+
+.social-icon i {
+  font-size: 28px;
   color: #00ffee;
-  font-weight: 600;
+}
+
+.social-icon .username {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.5s ease;
+  color: #00ffee;
 }
 
 .social-icon.active .username {
   opacity: 1;
-  transform: translateX(0);
-}
-
-.username.hidden {
-  display: none;
+  width: auto;
+  padding-left: 10px;
 }
 
 /* Footer */
@@ -264,7 +262,13 @@ footer {
     font-size: 2rem;
   }
 
-  .highlight {
-    font-size: 1.5rem;
+  .social-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-icon {
+    width: 80%;
+    justify-content: center;
   }
 }
