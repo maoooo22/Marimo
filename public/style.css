@@ -62,7 +62,7 @@ nav.navbar {
   margin: 4px 0;
 }
 
-/* Hero Section */
+/* Hero */
 .hero-style {
   display: flex;
   justify-content: center;
@@ -75,20 +75,12 @@ nav.navbar {
 .main-title {
   font-size: 3rem;
   font-weight: 800;
-  line-height: 1.3;
 }
 
 .highlight {
   color: #00ffee;
 }
 
-/* Typing text without cursor */
-#type-text {
-  display: inline-block;
-  color: #00ffee;
-}
-
-/* Hero description */
 .hero-desc {
   margin: 20px 0;
   font-size: 1.1rem;
@@ -114,7 +106,7 @@ nav.navbar {
   border: 2px solid #00ffee;
 }
 
-/* Section General */
+/* Section umum */
 .section {
   padding: 60px 30px;
   text-align: center;
@@ -132,7 +124,7 @@ nav.navbar {
   margin: 0 auto;
 }
 
-/* Project */
+/* Projects */
 .projects-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -182,7 +174,6 @@ nav.navbar {
   height: 20px;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 10px;
 }
 
 .skill-fill {
@@ -197,52 +188,44 @@ nav.navbar {
 }
 
 /* Social Icons */
-.social-icons {
+.social-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 30px;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
-.icon-item {
-  background: #222;
-  padding: 15px 20px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
+.social-icon {
+  position: relative;
   cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
 }
 
-.icon-item:hover {
-  transform: translateY(-3px);
-  background: #00ffee;
-  color: #000;
-}
-
-.icon-item i {
-  font-size: 1.8rem;
+.social-icon.active {
+  transform: translateX(-10px);
 }
 
 .username {
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 0;
-  opacity: 0;
-  transition: max-width 0.5s ease, opacity 0.5s ease, transform 0.5s;
-}
-
-.icon-item.active .username {
-  max-width: 200px;
-  opacity: 1;
-  transform: translateX(5px);
-}
-
-.username a {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #00ffee;
   color: #000;
-  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-in-out 0.2s, transform 0.4s ease;
+}
+
+.social-icon.active .username {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(80%, -50%);
 }
 
 /* Footer */
@@ -280,8 +263,18 @@ footer {
     font-size: 2rem;
   }
 
-  .social-icons {
+  .social-container {
     flex-direction: column;
     align-items: center;
+  }
+
+  .username {
+    left: 0;
+    top: 120%;
+    transform: translateX(0);
+  }
+
+  .social-icon.active .username {
+    transform: translateY(0);
   }
 }
