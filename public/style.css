@@ -1,4 +1,3 @@
-/* Reset & Font */
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +16,6 @@ a {
   text-decoration: none;
 }
 
-/* Navbar */
 nav.navbar {
   display: flex;
   justify-content: space-between;
@@ -77,28 +75,11 @@ nav.navbar {
 .main-title {
   font-size: 3rem;
   font-weight: 800;
-  line-height: 1.4;
 }
 
 .highlight {
   color: #00ffee;
-  font-weight: bold;
-}
-
-/* Typing Cursor */
-.cursor {
-  display: inline-block;
-  width: 3px;
-  height: 1.2rem;
-  background: #00ffee;
-  margin-left: 5px;
-  animation: blink 0.8s infinite;
-  vertical-align: middle;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  font-weight: 800;
 }
 
 .hero-desc {
@@ -126,7 +107,7 @@ nav.navbar {
   border: 2px solid #00ffee;
 }
 
-/* Section */
+/* Section General */
 .section {
   padding: 60px 30px;
   text-align: center;
@@ -144,7 +125,7 @@ nav.navbar {
   margin: 0 auto;
 }
 
-/* Projects */
+/* Project */
 .projects-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -189,13 +170,8 @@ nav.navbar {
 }
 
 .skill span i {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
-
-.fab.fa-html5 { color: #e34c26; }
-.fab.fa-css3-alt { color: #264de4; }
-.fab.fa-js-square { color: #f0db4f; }
-.fab.fa-python { color: #306998; }
 
 .skill-bar {
   background: #444;
@@ -205,7 +181,6 @@ nav.navbar {
 }
 
 .skill-fill {
-  background: #00ffee;
   height: 100%;
   text-align: right;
   padding-right: 10px;
@@ -215,14 +190,22 @@ nav.navbar {
   transition: width 1s ease-in-out;
 }
 
-/* Sosial Media Contact Hover */
-#contact a {
-  transition: transform 0.3s;
+.skill:nth-child(1) .skill-fill {
+  background: #e44d26; /* HTML5 Orange */
 }
 
-#contact a:hover {
-  transform: scale(1.1);
-  color: #00ffee;
+.skill:nth-child(2) .skill-fill {
+  background: #2965f1; /* CSS Blue */
+}
+
+.skill:nth-child(3) .skill-fill {
+  background: #f0db4f; /* JavaScript Yellow */
+  color: #000;
+}
+
+.skill:nth-child(4) .skill-fill {
+  background: #3572A5; /* Python Blue */
+  color: #fff;
 }
 
 /* Footer */
@@ -232,6 +215,42 @@ footer {
   font-size: 0.9rem;
   background: #000;
   color: #aaa;
+}
+
+/* Cursor fix */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #00ffee;
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+  vertical-align: -0.05em;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Sosmed icon + animasi hover */
+.sosmed {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.sosmed a {
+  font-size: 1.5rem;
+  color: #00ffee;
+  transition: transform 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+.sosmed a:hover {
+  transform: scale(1.2);
+  color: #fff;
 }
 
 /* Responsive */
@@ -259,8 +278,4 @@ footer {
   .main-title {
     font-size: 2rem;
   }
-
-  .projects-container {
-    grid-template-columns: 1fr;
   }
-}
