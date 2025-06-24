@@ -29,7 +29,10 @@
   <section class="hero-style" id="home">
     <div class="hero-content">
       <h1 class="main-title">HI, I'M MARIMO</h1>
-      <h2 class="type-container"><span id="type-text"></span><span id="cursor">|</span></h2>
+      <div class="type-container">
+        <span class="highlight" id="type-text"></span>
+        <span id="cursor" class="cursor">|</span>
+      </div>
       <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
@@ -46,28 +49,28 @@
     <h2>Skill Saya</h2>
 
     <div class="skill">
-      <span><i class="fab fa-html5"></i> HTML</span>
+      <span><i class="fab fa-html5" style="color: #e34c26;"></i> HTML</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 83%">83%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-css3-alt"></i> CSS</span>
+      <span><i class="fab fa-css3-alt" style="color: #264de4;"></i> CSS</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 80%">80%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-js-square"></i> JavaScript</span>
+      <span><i class="fab fa-js-square" style="color: #f0db4f;"></i> JavaScript</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 70%">70%</div>
       </div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-python"></i> Python</span>
+      <span><i class="fab fa-python" style="color: #306998;"></i> Python</span>
       <div class="skill-bar">
         <div class="skill-fill" style="width: 75%">75%</div>
       </div>
@@ -78,12 +81,8 @@
   <section class="section" id="projects">
     <h2>Project marimoo</h2>
     <div class="projects-container">
-
-      <!-- NGL Bot -->
       <div class="project-card">
-        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
-             alt="Tampilan NGL Bot" 
-             class="ngl-image" />
+        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="ngl-image" />
         <h3>NGL Bot</h3>
         <p>
           Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
@@ -97,7 +96,6 @@
         </ul>
         <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
       </div>
-
     </div>
   </section>
 
@@ -115,40 +113,40 @@
 
   <!-- Script -->
   <script>
-    // Toggle menu
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Typing animation
     const typeText = document.getElementById("type-text");
     const cursor = document.getElementById("cursor");
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
+    let typingSpeed = 100;
 
-    function typeEffect() {
+    function type() {
       const currentWord = words[wordIndex];
-      if (isDeleting) {
-        typeText.textContent = currentWord.substring(0, charIndex--);
+      if (!isDeleting) {
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentWord.length) {
+          isDeleting = true;
+          setTimeout(type, 1000);
+          return;
+        }
       } else {
-        typeText.textContent = currentWord.substring(0, charIndex++);
+        typeText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
       }
-
-      if (!isDeleting && charIndex === currentWord.length) {
-        isDeleting = true;
-        setTimeout(typeEffect, 1200);
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(typeEffect, 500);
-      } else {
-        setTimeout(typeEffect, isDeleting ? 50 : 100);
-      }
+      setTimeout(type, isDeleting ? 60 : 100);
     }
 
-    typeEffect();
+    type();
   </script>
 
 </body>
