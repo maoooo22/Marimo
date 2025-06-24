@@ -21,7 +21,7 @@
       <li><a href="#about">Tentang</a></li>
       <li><a href="#skills">Skill</a></li>
       <li><a href="#projects">Proyek</a></li>
-      <li><a href="#contact">Media Sosial</a></li>
+      <li><a href="#socials">Media Sosial</a></li>
     </ul>
   </nav>
 
@@ -29,7 +29,7 @@
   <section class="hero-style" id="home">
     <div class="hero-content">
       <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text"></span></h1>
-      <p class="hero-desc">Hi gue adalah marimo, gua sekarang duduk di bangku SMP. Gua tinggal di Indonesia, Bekasi, dan gua udah berhasil ngebuat project.</p>
+      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, Bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
   </section>
@@ -45,22 +45,22 @@
     <h2>Skill Saya</h2>
 
     <div class="skill">
-      <span><i class="fab fa-html5" style="color:orange;"></i> HTML</span>
+      <span><i class="fab fa-html5" style="color:#e44d26;"></i> HTML</span>
       <div class="skill-bar"><div class="skill-fill" style="width: 83%">83%</div></div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-css3-alt" style="color:#2196f3;"></i> CSS</span>
+      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
       <div class="skill-bar"><div class="skill-fill" style="width: 80%">80%</div></div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-js-square" style="color:yellow;"></i> JavaScript</span>
+      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
       <div class="skill-bar"><div class="skill-fill" style="width: 70%">70%</div></div>
     </div>
 
     <div class="skill">
-      <span><i class="fab fa-python" style="color:#4B8BBE;"></i> Python</span>
+      <span><i class="fab fa-python" style="color:#3776AB;"></i> Python</span>
       <div class="skill-bar"><div class="skill-fill" style="width: 75%">75%</div></div>
     </div>
   </section>
@@ -72,9 +72,12 @@
       <div class="project-card">
         <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="ngl-image" />
         <h3>NGL Bot</h3>
-        <p>Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p>
-        <ul>
-          <li>✅ Custom pesan teks dan bisa diatur jumlahnya</li>
+        <p>
+          Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
+          Fitur unggulannya meliputi:
+        </p>
+        <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
+          <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
           <li>✅ Input username & jumlah pesan</li>
           <li>✅ Backend fetch API langsung dari browser</li>
           <li>✅ Tampilan clean dan responsif</li>
@@ -85,17 +88,20 @@
   </section>
 
   <!-- Media Sosial -->
-  <section class="section" id="contact">
+  <section class="section" id="socials">
     <h2>Media Sosial</h2>
-    <div class="social-icons">
-      <div class="icon-item" onclick="showUsername(this, 'https://instagram.com/marimo_2553', '@marimo_2553')">
-        <i class="fab fa-instagram"></i><span class="username"></span>
+    <div class="social-container">
+      <div class="social-icon" onclick="toggleUser(this)">
+        <i class="fab fa-instagram"></i>
+        <span class="username"><a href="https://instagram.com/marimo_2553" target="_blank">@marimo_2553</a></span>
       </div>
-      <div class="icon-item" onclick="showUsername(this, 'https://www.tiktok.com/@galngpremium0', '@galngpremium0')">
-        <i class="fab fa-tiktok"></i><span class="username"></span>
+      <div class="social-icon" onclick="toggleUser(this)">
+        <i class="fab fa-tiktok"></i>
+        <span class="username"><a href="https://www.tiktok.com/@galngpremium0" target="_blank">@galngpremium0</a></span>
       </div>
-      <div class="icon-item" onclick="showUsername(this, 'https://t.me/maoo_2553', '@maoo_2553')">
-        <i class="fab fa-telegram"></i><span class="username"></span>
+      <div class="social-icon" onclick="toggleUser(this)">
+        <i class="fab fa-telegram"></i>
+        <span class="username"><a href="https://t.me/maoo_2553" target="_blank">@maoo_2553</a></span>
       </div>
     </div>
   </section>
@@ -105,7 +111,7 @@
   </footer>
 
   <script>
-    // Navbar
+    // Menu mobile toggle
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
@@ -113,42 +119,42 @@
     // Hero typing text
     const typeText = document.getElementById("type-text");
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
-    let wordIndex = 0, charIndex = 0, isDeleting = false;
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 100;
 
     function type() {
-      const current = words[wordIndex];
-      if (!isDeleting && charIndex < current.length) {
-        typeText.textContent = current.substring(0, ++charIndex);
-      } else if (isDeleting && charIndex > 0) {
-        typeText.textContent = current.substring(0, --charIndex);
-      } else {
-        isDeleting = !isDeleting;
-        if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(type, 500);
-        return;
+      const currentWord = words[wordIndex];
+
+      if (!isDeleting && charIndex <= currentWord.length) {
+        typeText.textContent = currentWord.substring(0, charIndex++);
+      } else if (isDeleting && charIndex >= 0) {
+        typeText.textContent = currentWord.substring(0, charIndex--);
       }
-      setTimeout(type, isDeleting ? 50 : 100);
+
+      if (charIndex === currentWord.length) isDeleting = true;
+      if (charIndex === 0 && isDeleting) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+      }
+
+      setTimeout(type, isDeleting ? 60 : 100);
     }
+
     type();
 
-    // Show username on icon click
-    function showUsername(el, link, username) {
-      const others = document.querySelectorAll('.icon-item');
-      others.forEach(item => {
-        if (item !== el) {
-          item.querySelector('.username').textContent = "";
-          item.classList.remove("active");
+    // Media sosial interaktif
+    function toggleUser(clickedIcon) {
+      const icons = document.querySelectorAll('.social-icon');
+
+      icons.forEach(icon => {
+        if (icon !== clickedIcon) {
+          icon.classList.remove('active');
         }
       });
 
-      const span = el.querySelector('.username');
-      if (el.classList.contains("active")) {
-        span.textContent = "";
-        el.classList.remove("active");
-      } else {
-        span.innerHTML = `<a href="${link}" target="_blank">${username}</a>`;
-        el.classList.add("active");
-      }
+      clickedIcon.classList.toggle('active');
     }
   </script>
 
