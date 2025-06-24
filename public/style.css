@@ -79,7 +79,6 @@ nav.navbar {
 
 .highlight {
   color: #00ffee;
-  font-weight: 800;
 }
 
 .hero-desc {
@@ -169,10 +168,6 @@ nav.navbar {
   margin-bottom: 5px;
 }
 
-.skill span i {
-  font-size: 1.2rem;
-}
-
 .skill-bar {
   background: #444;
   height: 20px;
@@ -190,20 +185,49 @@ nav.navbar {
   transition: width 1s ease-in-out;
 }
 
-.skill i.fa-html5 {
-  color: #e34c26; /* merah oranye khas HTML */
+.skill.html .skill-fill {
+  background-color: #e44d26; /* HTML orange */
 }
 
-.skill i.fa-css3-alt {
-  color: #264de4; /* biru khas CSS */
+.skill.css .skill-fill {
+  background-color: #264de4; /* CSS blue */
 }
 
-.skill i.fa-js-square {
-  color: #f0db4f; /* kuning khas JavaScript */
+.skill.js .skill-fill {
+  background-color: #f0db4f; /* JS yellow */
+  color: #111;
 }
 
-.skill i.fa-python {
-  color: #4B8BBE; /* biru khas Python */
+.skill.python .skill-fill {
+  background-color: #4B8BBE; /* Python blue */
+  color: #fff;
+}
+
+/* Contact Icons */
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.contact-icons a {
+  color: #00ffee;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.contact-icons a:hover {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.contact-icons span {
+  font-size: 0.9rem;
 }
 
 /* Footer */
@@ -215,40 +239,19 @@ footer {
   color: #aaa;
 }
 
-/* Cursor fix */
+/* Cursor Typing Effect */
 .cursor {
   display: inline-block;
-  width: 2px;
-  height: 1.1em;
+  width: 4px;
+  height: 1.2rem;
   background: #00ffee;
-  margin-left: 4px;
+  margin-left: 5px;
   animation: blink 0.8s infinite;
-  vertical-align: -0.05em;
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
-}
-
-/* Sosmed icon + animasi hover */
-.sosmed {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.sosmed a {
-  font-size: 1.5rem;
-  color: #00ffee;
-  transition: transform 0.3s ease, color 0.3s ease;
-  position: relative;
-}
-
-.sosmed a:hover {
-  transform: scale(1.2);
-  color: #fff;
 }
 
 /* Responsive */
@@ -276,4 +279,4 @@ footer {
   .main-title {
     font-size: 2rem;
   }
-  }
+}
