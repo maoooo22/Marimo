@@ -97,6 +97,13 @@ nav.navbar {
   border-radius: 25px;
   font-weight: 600;
   margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: #00ffee;
+  border: 2px solid #00ffee;
 }
 
 /* Section General */
@@ -132,6 +139,12 @@ nav.navbar {
   text-align: center;
   color: #fff;
   box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 255, 238, 0.2);
 }
 
 .project-card img.ngl-image {
@@ -182,6 +195,21 @@ footer {
   color: #aaa;
 }
 
+/* Typing Animation */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2rem;
+  background: #00ffee;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav-links {
@@ -207,4 +235,4 @@ footer {
   .main-title {
     font-size: 2rem;
   }
-}
+      }
