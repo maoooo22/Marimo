@@ -75,10 +75,27 @@ nav.navbar {
 .main-title {
   font-size: 3rem;
   font-weight: 800;
+  margin-bottom: 10px;
 }
 
-.highlight {
+.type-container {
+  font-size: 2rem;
+  font-weight: 600;
   color: #00ffee;
+  height: 2.5rem;
+  margin-bottom: 15px;
+}
+
+#cursor {
+  display: inline-block;
+  width: 2px;
+  background: #00ffee;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-desc {
@@ -195,21 +212,6 @@ footer {
   color: #aaa;
 }
 
-/* Typing Animation */
-.cursor {
-  display: inline-block;
-  width: 3px;
-  height: 1.2rem;
-  background: #00ffee;
-  margin-left: 5px;
-  animation: blink 0.8s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .nav-links {
@@ -235,4 +237,8 @@ footer {
   .main-title {
     font-size: 2rem;
   }
-      }
+
+  .type-container {
+    font-size: 1.5rem;
+  }
+}
