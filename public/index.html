@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,10 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-
-  <!-- Navbar -->
-  <nav class="navbar">
+<body>  <!-- Navbar -->  <nav class="navbar">
     <div class="logo">Marimo</div>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -21,61 +17,53 @@
       <li><a href="#about">Tentang</a></li>
       <li><a href="#skills">Skill</a></li>
       <li><a href="#projects">Proyek</a></li>
-      <li><a href="#socials">Media Sosial</a></li>
+      <li><a href="#medsos">Media Sosial</a></li>
     </ul>
-  </nav>
-
-  <!-- Hero -->
-  <section class="hero-style" id="home">
+  </nav>  <!-- Hero -->  <section class="hero-style" id="home">
     <div class="hero-content">
       <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text"></span></h1>
-      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, Bekasi, gua udah berhasil ngebuat project.</p>
+      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
-  </section>
-
-  <!-- Tentang -->
-  <section class="section" id="about">
+  </section>  <!-- Tentang -->  <section class="section" id="about">
     <h2>Tentang Saya</h2>
     <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
-  </section>
+  </section>  <!-- Skill -->  <section class="section" id="skills">
+    <h2>Skill Saya</h2><div class="skill">
+  <span><i class="fab fa-html5" style="color:#e44d26"></i> HTML</span>
+  <div class="skill-bar">
+    <div class="skill-fill" style="width: 83%; background-color: #e44d26;">83%</div>
+  </div>
+</div>
 
-  <!-- Skill -->
-  <section class="section" id="skills">
-    <h2>Skill Saya</h2>
+<div class="skill">
+  <span><i class="fab fa-css3-alt" style="color:#264de4"></i> CSS</span>
+  <div class="skill-bar">
+    <div class="skill-fill" style="width: 80%; background-color: #264de4;">80%</div>
+  </div>
+</div>
 
-    <div class="skill">
-      <span><i class="fab fa-html5" style="color:#e44d26;"></i> HTML</span>
-      <div class="skill-bar"><div class="skill-fill" style="width: 83%">83%</div></div>
-    </div>
+<div class="skill">
+  <span><i class="fab fa-js-square" style="color:#f0db4f"></i> JavaScript</span>
+  <div class="skill-bar">
+    <div class="skill-fill" style="width: 70%; background-color: #f0db4f; color: #000;">70%</div>
+  </div>
+</div>
 
-    <div class="skill">
-      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
-      <div class="skill-bar"><div class="skill-fill" style="width: 80%">80%</div></div>
-    </div>
+<div class="skill">
+  <span><i class="fab fa-python" style="color:#306998"></i> Python</span>
+  <div class="skill-bar">
+    <div class="skill-fill" style="width: 75%; background-color: #306998;">75%</div>
+  </div>
+</div>
 
-    <div class="skill">
-      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
-      <div class="skill-bar"><div class="skill-fill" style="width: 70%">70%</div></div>
-    </div>
-
-    <div class="skill">
-      <span><i class="fab fa-python" style="color:#3776AB;"></i> Python</span>
-      <div class="skill-bar"><div class="skill-fill" style="width: 75%">75%</div></div>
-    </div>
-  </section>
-
-  <!-- Proyek -->
-  <section class="section" id="projects">
+  </section>  <!-- Proyek -->  <section class="section" id="projects">
     <h2>Project marimoo</h2>
     <div class="projects-container">
       <div class="project-card">
         <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="ngl-image" />
         <h3>NGL Bot</h3>
-        <p>
-          Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
-          Fitur unggulannya meliputi:
-        </p>
+        <p>Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. Fitur unggulannya meliputi:</p>
         <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
           <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
           <li>✅ Input username & jumlah pesan</li>
@@ -85,38 +73,29 @@
         <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
       </div>
     </div>
-  </section>
-
-  <!-- Media Sosial -->
-  <section class="section" id="socials">
+  </section>  <!-- Media Sosial -->  <section class="section" id="medsos">
     <h2>Media Sosial</h2>
     <div class="social-container">
-      <div class="social-icon" onclick="toggleUser(this)">
+      <div class="social-icon" onclick="toggleUsername(this)">
         <i class="fab fa-instagram"></i>
-        <span class="username"><a href="https://instagram.com/marimo_2553" target="_blank">@marimo_2553</a></span>
+        <a href="https://instagram.com/marimo_2553" target="_blank" class="username">@marimo_2553</a>
       </div>
-      <div class="social-icon" onclick="toggleUser(this)">
+      <div class="social-icon" onclick="toggleUsername(this)">
         <i class="fab fa-tiktok"></i>
-        <span class="username"><a href="https://www.tiktok.com/@galngpremium0" target="_blank">@galngpremium0</a></span>
+        <a href="https://tiktok.com/@galngpremium0" target="_blank" class="username">@galngpremium0</a>
       </div>
-      <div class="social-icon" onclick="toggleUser(this)">
+      <div class="social-icon" onclick="toggleUsername(this)">
         <i class="fab fa-telegram"></i>
-        <span class="username"><a href="https://t.me/maoo_2553" target="_blank">@maoo_2553</a></span>
+        <a href="https://t.me/maoo_2553" target="_blank" class="username">@maoo_2553</a>
       </div>
     </div>
-  </section>
-
-  <footer>
+  </section>  <footer>
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
-  </footer>
-
-  <script>
-    // Menu mobile toggle
+  </footer>  <script>
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Hero typing text
     const typeText = document.getElementById("type-text");
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let wordIndex = 0;
@@ -126,37 +105,31 @@
 
     function type() {
       const currentWord = words[wordIndex];
-
-      if (!isDeleting && charIndex <= currentWord.length) {
-        typeText.textContent = currentWord.substring(0, charIndex++);
-      } else if (isDeleting && charIndex >= 0) {
-        typeText.textContent = currentWord.substring(0, charIndex--);
+      if (!isDeleting && charIndex < currentWord.length) {
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typingSpeed = 100;
+      } else if (isDeleting && charIndex > 0) {
+        typeText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        typingSpeed = 50;
+      } else {
+        isDeleting = !isDeleting;
+        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+        typingSpeed = 800;
       }
-
-      if (charIndex === currentWord.length) isDeleting = true;
-      if (charIndex === 0 && isDeleting) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-      }
-
-      setTimeout(type, isDeleting ? 60 : 100);
+      setTimeout(type, typingSpeed);
     }
 
     type();
 
-    // Media sosial interaktif
-    function toggleUser(clickedIcon) {
-      const icons = document.querySelectorAll('.social-icon');
-
-      icons.forEach(icon => {
-        if (icon !== clickedIcon) {
-          icon.classList.remove('active');
-        }
+    function toggleUsername(el) {
+      const allIcons = document.querySelectorAll('.social-icon');
+      allIcons.forEach(icon => {
+        if (icon !== el) icon.classList.remove('active');
       });
-
-      clickedIcon.classList.toggle('active');
+      el.classList.toggle('active');
     }
   </script>
-
 </body>
 </html>
