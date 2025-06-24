@@ -28,7 +28,8 @@
   <!-- Hero -->
   <section class="hero-style" id="home">
     <div class="hero-content">
-      <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text"></span></h1>
+      <h1 class="main-title">HI, I'M MARIMO</h1>
+      <h2 class="type-container"><span id="type-text"></span><span id="cursor">|</span></h2>
       <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
@@ -112,43 +113,43 @@
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
   </footer>
 
+  <!-- Script -->
   <script>
     // Toggle menu
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Typing Effect
+    // Typing animation
     const typeText = document.getElementById("type-text");
+    const cursor = document.getElementById("cursor");
     const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingSpeed = 100;
 
-    function type() {
+    function typeEffect() {
       const currentWord = words[wordIndex];
-      
-      if (!isDeleting && charIndex < currentWord.length) {
-        typeText.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
-      } else if (isDeleting && charIndex > 0) {
-        typeText.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
+      if (isDeleting) {
+        typeText.textContent = currentWord.substring(0, charIndex--);
       } else {
-        isDeleting = !isDeleting;
-        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
-        typingSpeed = 500;
+        typeText.textContent = currentWord.substring(0, charIndex++);
       }
 
-      setTimeout(type, typingSpeed);
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1200);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+      }
     }
 
-    // Mulai animasi
-    type();
-    typeText.classList.add("cursor");
+    typeEffect();
   </script>
- </body>
+
+</body>
 </html>
