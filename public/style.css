@@ -75,27 +75,12 @@ nav.navbar {
 .main-title {
   font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 10px;
 }
 
-.type-container {
-  font-size: 2rem;
-  font-weight: 600;
+.highlight {
   color: #00ffee;
-  height: 2.5rem;
-  margin-bottom: 15px;
-}
-
-#cursor {
-  display: inline-block;
-  width: 2px;
-  background: #00ffee;
-  animation: blink 0.8s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  font-weight: 700;
+  font-size: 1.8rem;
 }
 
 .hero-desc {
@@ -183,6 +168,7 @@ nav.navbar {
   align-items: center;
   gap: 10px;
   margin-bottom: 5px;
+  font-size: 1.1rem;
 }
 
 .skill-bar {
@@ -201,6 +187,25 @@ nav.navbar {
   font-weight: 600;
   border-radius: 10px 0 0 10px;
   transition: width 1s ease-in-out;
+}
+
+/* Typing Area */
+.type-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  font-weight: bold;
+  color: #00ffee;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Footer */
@@ -236,9 +241,5 @@ footer {
 
   .main-title {
     font-size: 2rem;
-  }
-
-  .type-container {
-    font-size: 1.5rem;
   }
 }
