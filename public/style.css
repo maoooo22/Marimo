@@ -16,7 +16,6 @@ a {
   text-decoration: none;
 }
 
-/* Navbar */
 nav.navbar {
   display: flex;
   justify-content: space-between;
@@ -63,7 +62,7 @@ nav.navbar {
   margin: 4px 0;
 }
 
-/* Hero Section */
+/* Hero */
 .hero-style {
   display: flex;
   justify-content: center;
@@ -71,38 +70,18 @@ nav.navbar {
   height: 90vh;
   text-align: center;
   padding: 20px;
-  flex-direction: column;
 }
 
 .main-title {
   font-size: 3rem;
   font-weight: 800;
-  margin-bottom: 10px;
 }
 
-.typing-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8rem;
-  font-weight: 600;
+.highlight {
   color: #00ffee;
-  height: 40px;
-  margin-bottom: 10px;
-}
-
-.cursor {
-  display: inline-block;
-  width: 3px;
-  height: 1.4rem;
-  background: #00ffee;
-  margin-left: 5px;
-  animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  font-size: 2.2rem;
+  display: block;
+  margin-top: 10px;
 }
 
 .hero-desc {
@@ -148,54 +127,6 @@ nav.navbar {
   margin: 0 auto;
 }
 
-/* Skill */
-.skill {
-  margin: 20px auto;
-  max-width: 500px;
-  text-align: left;
-}
-
-.skill span {
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
-  font-size: 1rem;
-}
-
-.skill span i.fab.fa-html5 {
-  color: #e44d26;
-}
-.skill span i.fab.fa-css3-alt {
-  color: #2965f1;
-}
-.skill span i.fab.fa-js-square {
-  color: #f7df1e;
-}
-.skill span i.fab.fa-python {
-  color: #306998;
-}
-
-.skill-bar {
-  background: #444;
-  height: 20px;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.skill-fill {
-  background: #00ffee;
-  height: 100%;
-  text-align: right;
-  padding-right: 10px;
-  color: #111;
-  font-weight: 600;
-  border-radius: 10px 0 0 10px;
-  transition: width 1s ease-in-out;
-}
-
 /* Projects */
 .projects-container {
   display: grid;
@@ -225,32 +156,77 @@ nav.navbar {
   margin-bottom: 15px;
 }
 
-/* Kontak */
-.social-icons {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+/* Skills */
+#skills .skill {
+  margin: 20px auto;
+  max-width: 500px;
+  text-align: left;
 }
 
-.social-icons a {
-  color: #00ffee;
-  font-size: 1.2rem;
+.skill span {
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 5px;
+}
+
+.skill-bar {
+  background: #333;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.skill-fill {
+  background: #00ffee;
+  height: 100%;
+  text-align: right;
+  padding-right: 10px;
+  color: #111;
+  font-weight: 600;
+  transition: width 1s ease-in-out;
+}
+
+/* Contact / Sosial */
+.social-container {
+  display: flex;
   justify-content: center;
-  transition: transform 0.3s;
+  gap: 30px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-.social-icons a:hover {
-  transform: scale(1.1);
-  color: #fff;
+.social-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  position: relative;
 }
 
-.social-icons span {
-  font-weight: 500;
+.social-icon:hover {
+  transform: translateY(-5px);
+}
+
+.username {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.4s ease;
+  margin-top: 8px;
+  color: #00ffee;
+  font-weight: 600;
+}
+
+.social-icon.active .username {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.username.hidden {
+  display: none;
 }
 
 /* Footer */
@@ -288,7 +264,7 @@ footer {
     font-size: 2rem;
   }
 
-  .typing-container {
-    font-size: 1.2rem;
+  .highlight {
+    font-size: 1.5rem;
   }
 }
