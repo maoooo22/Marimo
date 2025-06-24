@@ -79,8 +79,6 @@ nav.navbar {
 
 .highlight {
   color: #00ffee;
-  font-weight: 700;
-  font-size: 1.8rem;
 }
 
 .hero-desc {
@@ -168,7 +166,6 @@ nav.navbar {
   align-items: center;
   gap: 10px;
   margin-bottom: 5px;
-  font-size: 1.1rem;
 }
 
 .skill-bar {
@@ -189,23 +186,36 @@ nav.navbar {
   transition: width 1s ease-in-out;
 }
 
-/* Typing Area */
-.type-container {
-  margin-top: 10px;
-  margin-bottom: 10px;
+/* Kontak */
+.sosmed-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 20px;
 }
 
-/* Cursor */
-.cursor {
-  display: inline-block;
-  font-weight: bold;
+.sosmed-item {
+  text-align: center;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.sosmed-item i {
+  font-size: 2rem;
   color: #00ffee;
-  animation: blink 0.8s infinite;
+  transition: transform 0.3s ease;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+.sosmed-item:hover i {
+  transform: scale(1.3);
+  color: #fff;
+}
+
+.sosmed-item span {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
 /* Footer */
@@ -215,6 +225,21 @@ footer {
   font-size: 0.9rem;
   background: #000;
   color: #aaa;
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2rem;
+  background: #00ffee;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Responsive */
@@ -242,4 +267,4 @@ footer {
   .main-title {
     font-size: 2rem;
   }
-}
+            }
