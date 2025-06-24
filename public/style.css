@@ -62,7 +62,6 @@ nav.navbar {
   margin: 4px 0;
 }
 
-/* Hero */
 .hero-style {
   display: flex;
   justify-content: center;
@@ -81,7 +80,6 @@ nav.navbar {
   color: #00ffee;
 }
 
-/* Hero Description */
 .hero-desc {
   margin: 20px 0;
   font-size: 1.1rem;
@@ -107,7 +105,6 @@ nav.navbar {
   border: 2px solid #00ffee;
 }
 
-/* Section */
 .section {
   padding: 60px 30px;
   text-align: center;
@@ -125,7 +122,6 @@ nav.navbar {
   margin: 0 auto;
 }
 
-/* Project */
 .projects-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -187,47 +183,49 @@ nav.navbar {
   transition: width 1s ease-in-out;
 }
 
-/* Sosial Media Section */
+/* Media Sosial */
 .social-container {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-top: 30px;
-  position: relative;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .social-icon {
+  background: #222;
+  border-radius: 25px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #222;
-  padding: 10px 15px;
-  border-radius: 30px;
-  transition: all 0.4s ease;
-  cursor: pointer;
+  gap: 15px;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 600;
 }
 
 .social-icon i {
-  font-size: 28px;
-  color: #00ffee;
+  font-size: 1.5rem;
 }
 
 .social-icon .username {
   opacity: 0;
-  width: 0;
-  overflow: hidden;
+  transform: translateX(-10px);
+  transition: 0.4s ease;
   white-space: nowrap;
-  transition: all 0.5s ease;
-  color: #00ffee;
 }
 
-.social-icon.active .username {
+.social-icon:hover {
+  background: #00ffee;
+  color: #000;
+}
+
+.social-icon:hover .username {
   opacity: 1;
-  width: auto;
-  padding-left: 10px;
+  transform: translateX(0);
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 20px;
@@ -236,7 +234,21 @@ footer {
   color: #aaa;
 }
 
-/* Responsive */
+/* Typing Animation */
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2rem;
+  background: #00ffee;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -260,15 +272,5 @@ footer {
 
   .main-title {
     font-size: 2rem;
-  }
-
-  .social-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .social-icon {
-    width: 80%;
-    justify-content: center;
   }
 }
