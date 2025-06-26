@@ -111,6 +111,55 @@
     </div>
   </section>
 
+  <!-- Tambahkan ini setelah section media sosial --><section class="section" id="comments">
+  <h2>Tinggalkan Komentar</h2>
+  <form id="commentForm">
+    <input type="email" id="email" placeholder="Gmail kamu" required><br>
+    <input type="text" id="username" placeholder="Username" required><br>
+    <textarea id="comment" placeholder="Komentar kamu..." required></textarea><br>
+    <button type="submit">Kirim</button>
+  </form>
+  <div id="commentsList"></div>
+</section>
+  <script>
+  // Submit komentar
+  document.getElementById('commentForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    const comment = document.getElementById('comment').value;
+
+    const res = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, username, comment })
+    });
+
+    if (res.ok) {
+      alert('Komentar berhasil dikirim!');
+      this.reset();
+      loadComments();
+    } else {
+      alert('Gagal mengirim komentar.');
+    }
+  });
+
+  // Ambil komentar
+  async function loadComments() {
+    const res = await fetch('/api/comments');
+    const data = await res.json();
+    if (data.success) {
+      const container = document.getElementById('commentsList');
+      container.innerHTML = data.comments.map(c =>
+        `<div style="margin-bottom: 10px;"><strong>${c.username}</strong> (${c.email}):<br>${c.comment}</div>`
+      ).join('');
+    }
+  }
+
+  // Load awal
+  window.addEventListener('load', loadComments);
+      </script>
+
   <footer>
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
   </footer>
