@@ -103,38 +103,42 @@
     }
 
     // Typing animation
-    const typeText = document.getElementById("type-text");
-    const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 120;
+    <script>
+  const typeText = document.getElementById("type-text");
+  const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100;
+  let delayAfterWord = 1000;
 
-    function type() {
-      const currentWord = words[wordIndex];
-      if (!isDeleting && charIndex < currentWord.length) {
-        typeText.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-      } else if (isDeleting && charIndex > 0) {
-        typeText.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
+  function type() {
+    const currentWord = words[wordIndex];
+
+    if (!isDeleting && charIndex < currentWord.length) {
+      typeText.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+      typingSpeed = 100;
+    } else if (isDeleting && charIndex > 0) {
+      typeText.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+      typingSpeed = 50;
+    } else {
+      if (!isDeleting) {
+        isDeleting = true;
+        typingSpeed = delayAfterWord; // ⏳ Delay 1 detik sebelum hapus
       } else {
-        isDeleting = !isDeleting;
-        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
         typingSpeed = 500;
       }
-      setTimeout(type, isDeleting ? 50 : 120);
     }
-    type();
 
-    function toggleSocial(el) {
-      const allItems = document.querySelectorAll('.social-item');
-      allItems.forEach(item => {
-        if (item !== el) {
-          item.classList.remove('active');
-        }
-      });
-      el.classList.toggle('active');
-    }
-  </script></body>
+    setTimeout(type, typingSpeed);
+  }
+
+  // Mulai animasi
+  type();
+  typeText.classList.add("cursor");
+</script></body>
 </html>
