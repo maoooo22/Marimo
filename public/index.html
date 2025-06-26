@@ -103,42 +103,40 @@
     }
 
     // Typing animation
-   <script>
-  const typeText = document.getElementById("type-text");
+<script>
+  const typeText = 
+  document.getElementById("type-text");
   const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
   let typingSpeed = 100;
-  let delayAfterWord = 1000;
+  const delayAfterWord = 1000;
 
   function type() {
     const currentWord = words[wordIndex];
 
-    if (!isDeleting && charIndex < currentWord.length) {
-      typeText.textContent = currentWord.substring(0, charIndex + 1);
+    if (!isDeleting && charIndex <= currentWord.length) {
+      typeText.textContent = currentWord.substring(0, charIndex);
       charIndex++;
-      typingSpeed = 100;
-    } else if (isDeleting && charIndex > 0) {
-      typeText.textContent = currentWord.substring(0, charIndex - 1);
+    } else if (isDeleting && charIndex >= 0) {
+      typeText.textContent = currentWord.substring(0, charIndex);
       charIndex--;
-      typingSpeed = 50;
-    } else {
-      if (!isDeleting) {
-        isDeleting = true;
-        typingSpeed = delayAfterWord; // ⏳ Delay 1 detik sebelum hapus
-      } else {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        typingSpeed = 500;
-      }
     }
 
-    setTimeout(type, typingSpeed);
+    if (charIndex === currentWord.length && !isDeleting) {
+      isDeleting = true;
+      setTimeout(type, delayAfterWord);
+    } else if (charIndex === 0 && isDeleting) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      setTimeout(type, 300);
+    } else {
+      setTimeout(type, isDeleting ? 50 : 100);
+    }
   }
 
-  // Mulai animasi
-  type();
   typeText.classList.add("cursor");
+  type();
 </script></body>
 </html>
