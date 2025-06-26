@@ -111,6 +111,22 @@
     </div>
   </section>
 
+  <!-- Komentar -->
+<section class="section" id="komentar">
+  <h2>Komentar</h2>
+
+  <form id="comment-form">
+    <input type="email" id="email" placeholder="Gmail kamu" required />
+    <input type="text" id="username" placeholder="Username" required />
+    <textarea id="comment" placeholder="Tulis komentar..." required></textarea>
+    <button type="submit">Kirim Komentar</button>
+  </form>
+
+  <div id="comments-list">
+    <!-- Komentar dari supabase akan tampil di sini -->
+  </div>
+</section>
+  
   <!-- Tambahkan ini setelah section media sosial --><section class="section" id="comments">
   <h2>Tinggalkan Komentar</h2>
   <form id="commentForm">
@@ -218,7 +234,57 @@
         }
       });
     }
-  </script>
+  </script><script type="module">
+  const SUPABASE_URL = 'https://hyspyxgkxsvtuxkusuad.supabase.co';
+  const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
+  const table = 'comments';
+
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const form = document.getElementById('comment-form');
+  const list = document.getElementById('comments-list');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+
+    if (!email || !username || !comment) return;
+
+    const { error } = await supabase.from(table).insert([{ email, username, comment }]);
+    if (error) {
+      alert('Gagal mengirim komentar');
+    } else {
+      form.reset();
+      loadComments();
+    }
+  });
+
+  async function loadComments() {
+    const { data, error } = await supabase
+      .from(table)
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data.length) {
+      list.innerHTML = '';
+      data.forEach(({ email, username, comment }) => {
+        const div = document.createElement('div');
+        div.className = 'comment-box';
+        div.innerHTML = `
+          <div class="email">${email}</div>
+          <div class="username">${username}</div>
+          <div class="text">${comment}</div>
+        `;
+        list.appendChild(div);
+      });
+    }
+  }
+
+  loadComments();
+      </script>
 
 </body>
 </html>
