@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,7 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>  <!-- Navbar -->  <nav class="navbar">
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
     <div class="logo">Marimo</div>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -17,58 +21,66 @@
       <li><a href="#about">Tentang</a></li>
       <li><a href="#skills">Skill</a></li>
       <li><a href="#projects">Proyek</a></li>
-      <li><a href="#media">Media Sosial</a></li>
+      <li><a href="#contact">Media Sosial</a></li>
     </ul>
-  </nav>  <!-- Hero -->  <section class="hero-style" id="home">
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-style" id="home">
     <div class="hero-content">
-      <h1 class="main-title">HI, I'M MARIMO<br><span class="highlight" id="type-text"></span></h1>
+      <h1 class="main-title">HI, I'M MARIMO<br>
+        <span class="highlight cursor" id="type-text"></span>
+      </h1>
       <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
       <a href="#projects" class="btn-primary">Lihat Proyek</a>
     </div>
-  </section>  <!-- Tentang -->  <section class="section" id="about">
+  </section>
+
+  <!-- Tentang -->
+  <section class="section" id="about">
     <h2>Tentang Saya</h2>
     <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
-  </section>  <!-- Skill -->  <section class="section" id="skills">
-    <h2>Skill Saya</h2><div class="skill">
-  <span><i class="fab fa-html5" style="color:#e44d26;"></i> HTML</span>
-  <div class="skill-bar">
-    <div class="skill-fill" style="width: 83%">83%</div>
-  </div>
-</div>
+  </section>
 
-<div class="skill">
-  <span><i class="fab fa-css3-alt" style="color:#1572B6;"></i> CSS</span>
-  <div class="skill-bar">
-    <div class="skill-fill" style="width: 80%">80%</div>
-  </div>
-</div>
+  <!-- Skill -->
+  <section class="section" id="skills">
+    <h2>Skill Saya</h2>
+    <div class="skill">
+      <span><i class="fab fa-html5" style="color:#e34c26;"></i> HTML</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 83%">83%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 80%">80%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 70%">70%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span><i class="fab fa-python" style="color:#306998;"></i> Python</span>
+      <div class="skill-bar">
+        <div class="skill-fill" style="width: 75%">75%</div>
+      </div>
+    </div>
+  </section>
 
-<div class="skill">
-  <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
-  <div class="skill-bar">
-    <div class="skill-fill" style="width: 70%">70%</div>
-  </div>
-</div>
-
-<div class="skill">
-  <span><i class="fab fa-python" style="color:#306998;"></i> Python</span>
-  <div class="skill-bar">
-    <div class="skill-fill" style="width: 75%">75%</div>
-  </div>
-</div>
-
-  </section>  <!-- Proyek -->  <section class="section" id="projects">
-    <h2>Project Marimo</h2>
+  <!-- Proyek -->
+  <section class="section" id="projects">
+    <h2>Project marimoo</h2>
     <div class="projects-container">
       <div class="project-card">
         <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
              alt="Tampilan NGL Bot" 
              class="ngl-image" />
         <h3>NGL Bot</h3>
-        <p>
-          Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri. 
-          Fitur unggulannya meliputi:
-        </p>
+        <p>Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p>
         <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
           <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
           <li>✅ Input username & jumlah pesan</li>
@@ -78,65 +90,86 @@
         <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
       </div>
     </div>
-  </section>  <!-- Media Sosial -->  <section class="section" id="media">
+  </section>
+
+  <!-- Media Sosial -->
+  <section class="section" id="contact">
     <h2>Media Sosial</h2>
     <div class="social-container">
-      <div class="social-item" onclick="toggleSocial(this)">
+      <div class="social-icon" onclick="toggleSocial('ig')">
         <i class="fab fa-instagram"></i>
-        <a href="https://instagram.com/marimo_2553" target="_blank" class="social-username">marimo_2553</a>
+        <a href="https://instagram.com/marimo_2553" target="_blank" id="ig-username" class="username hidden"> @marimo_2553 </a>
       </div>
-      <div class="social-item" onclick="toggleSocial(this)">
+      <div class="social-icon" onclick="toggleSocial('tiktok')">
         <i class="fab fa-tiktok"></i>
-        <a href="https://www.tiktok.com/@galngpremium0" target="_blank" class="social-username">galngpremium0</a>
+        <a href="https://tiktok.com/@galngpremium0" target="_blank" id="tiktok-username" class="username hidden"> @galngpremium0 </a>
       </div>
-      <div class="social-item" onclick="toggleSocial(this)">
-        <i class="fab fa-telegram" style="color:#0088cc;"></i>
-        <a href="https://t.me/maoo_2553" target="_blank" class="social-username">maoo_2553</a>
+      <div class="social-icon" onclick="toggleSocial('telegram')">
+        <i class="fab fa-telegram"></i>
+        <a href="https://t.me/maoo_2553" target="_blank" id="telegram-username" class="username hidden"> @maoo_2553 </a>
       </div>
     </div>
-  </section>  <footer>
+  </section>
+
+  <footer>
     &copy; 2025 Marimo. Dibuat dengan hati ❤️
-  </footer>  <script>
-    // Toggle menu
+  </footer>
+
+  <script>
+    // Navbar toggle
     function toggleMenu() {
       document.getElementById('navMenu').classList.toggle('show');
     }
 
-    // Typing animation
-<script>
-  const typeText = 
-  document.getElementById("type-text");
-  const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingSpeed = 100;
-  const delayAfterWord = 1000;
+    // Typing Effect
+    const typeText = document.getElementById("type-text");
+    const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingDelay = 100;
+    let delayStart = true;
 
-  function type() {
-    const currentWord = words[wordIndex];
+    function type() {
+      const currentWord = words[wordIndex];
 
-    if (!isDeleting && charIndex <= currentWord.length) {
-      typeText.textContent = currentWord.substring(0, charIndex);
-      charIndex++;
-    } else if (isDeleting && charIndex >= 0) {
-      typeText.textContent = currentWord.substring(0, charIndex);
-      charIndex--;
+      if (delayStart) {
+        delayStart = false;
+        return setTimeout(type, 1000); // 1 detik delay di awal
+      }
+
+      if (!isDeleting && charIndex < currentWord.length) {
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typingDelay = 100;
+      } else if (isDeleting && charIndex > 0) {
+        typeText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+        typingDelay = 50;
+      } else {
+        isDeleting = !isDeleting;
+        if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
+        typingDelay = 700;
+      }
+
+      setTimeout(type, typingDelay);
     }
 
-    if (charIndex === currentWord.length && !isDeleting) {
-      isDeleting = true;
-      setTimeout(type, delayAfterWord);
-    } else if (charIndex === 0 && isDeleting) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      setTimeout(type, 300);
-    } else {
-      setTimeout(type, isDeleting ? 50 : 100);
-    }
-  }
+    type();
 
-  typeText.classList.add("cursor");
-  type();
-</script></body>
+    // Toggle social usernames
+    function toggleSocial(platform) {
+      const platforms = ["ig", "tiktok", "telegram"];
+      platforms.forEach(p => {
+        const el = document.getElementById(`${p}-username`);
+        if (p === platform) {
+          el.classList.toggle("hidden");
+        } else {
+          el.classList.add("hidden");
+        }
+      });
+    }
+  </script>
+
+</body>
 </html>
