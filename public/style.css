@@ -289,3 +289,63 @@ footer {
     margin-bottom: 15px;
   }
 }
+
+#comment-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto 30px;
+  gap: 10px;
+}
+
+#comment-form input,
+#comment-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+
+#comment-form button {
+  padding: 10px;
+  border: none;
+  background: #00ffee;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+#comment-form button:hover {
+  background: transparent;
+  color: #00ffee;
+  border: 2px solid #00ffee;
+}
+
+#comments-list {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.comment-box {
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.comment-box .email {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.comment-box .username {
+  font-weight: bold;
+  color: #00ffee;
+}
+
+.comment-box .text {
+  margin-top: 5px;
+}
