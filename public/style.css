@@ -268,3 +268,19 @@ footer {
     font-size: 2rem;
   }
 }
+
+.cursor::after {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 1.2rem;
+  background-color: #00ffee;
+  margin-left: 5px;
+  animation: blink 0.8s infinite;
+  vertical-align: bottom;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
