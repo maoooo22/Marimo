@@ -1,27 +1,35 @@
-// pages/mtk/index.js
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function MatematikaIndex() {
-  const menu = [
-    { title: 'Perkalian', href: '/mtk/perkalian' },
-    { title: 'Pembagian', href: '/mtk/pembagian' },
-    { title: 'Konversi Liter ke dm³', href: '/mtk/konversi-liter-dm' },
-  ];
-
+export default function MtkMenuPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center">Menu Matematika</h1>
-      <div className="grid gap-4 w-full max-w-md">
-        {menu.map((item, index) => (
-          <Link
-            key={index}
-            href={item.href}
-            className="block text-center bg-white shadow-md hover:shadow-lg transition rounded-xl py-4 px-6 border hover:bg-blue-50"
-          >
-            {item.title}
-          </Link>
-        ))}
-      </div>
-    </div>
+    <main style={styles.container}>
+      <h1 style={styles.title}>Menu Matematika</h1>
+      <ul style={styles.menu}>
+        <li><Link href="/mtk/perkalian">Perkalian</Link></li>
+        <li><Link href="/mtk/penjumlahan">Penjumlahan</Link></li>
+        <li><Link href="/mtk/pengurangan">Pengurangan</Link></li>
+        <li><Link href="/mtk/pembagian">Pembagian</Link></li>
+      </ul>
+    </main>
   );
 }
+
+const styles = {
+  container: {
+    padding: "2rem",
+    fontFamily: "sans-serif",
+    textAlign: "center",
+  },
+  title: {
+    fontSize: "2rem",
+    marginBottom: "1.5rem",
+  },
+  menu: {
+    listStyle: "none",
+    padding: 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+    alignItems: "center",
+  }
+};
