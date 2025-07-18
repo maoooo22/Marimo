@@ -2,12 +2,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/index.html"
+      "source": "/mtk",
+      "destination": "/mtk.html"
     },
     {
-      "source": "/mtk/operasi",
-      "destination": "/mtk/index.js"
+      "source": "/",
+      "destination": "/index.html"
     }
   ]
 }
