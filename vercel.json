@@ -4,6 +4,10 @@
     {
       "source": "/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/mtk/index",
+      "destination": "/mtk/index.js"
     }
   ]
 }
