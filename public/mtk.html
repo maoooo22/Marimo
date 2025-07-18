@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Kalkulator Operasi Matematika</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Operasi Matematika</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
+      padding: 20px;
+      background: #f4f4f4;
     }
-    input, select, button {
-      margin: 10px;
-      padding: 10px;
-      font-size: 16px;
-    }
-    #hasil {
-      margin-top: 20px;
-      font-size: 20px;
-      font-weight: bold;
+    input, button {
+      margin: 5px;
+      padding: 5px;
     }
   </style>
 </head>
 <body>
+  <h1>Operasi Matematika</h1>
 
-  <h1>Kalkulator MTK</h1>
+  <h2>Perkalian</h2>
+  <input id="perkalianA" type="number" placeholder="Angka 1" />
+  <input id="perkalianB" type="number" placeholder="Angka 2" />
+  <button onclick="hitungPerkalian()">Hitung</button>
+  <p>Hasil: <span id="hasilPerkalian"></span></p>
 
-  <input type="number" id="a" placeholder="Angka pertama">
-  <input type="number" id="b" placeholder="Angka kedua">
+  <hr/>
 
-  <select id="operator">
-    <option value="tambah">Tambah</option>
-    <option value="kurang">Kurang</option>
-    <option value="kali">Kali</option>
-    <option value="bagi">Bagi</option>
-  </select>
+  <h2>Pembagian</h2>
+  <input id="pembagianA" type="number" placeholder="Angka 1" />
+  <input id="pembagianB" type="number" placeholder="Angka 2" />
+  <button onclick="hitungPembagian()">Hitung</button>
+  <p>Hasil: <span id="hasilPembagian"></span></p>
 
-  <button onclick="hitung()">Hitung</button>
-
-  <div id="hasil">Hasil: -</div>
-
-  <script>
-    async function hitung() {
-      const a = document.getElementById('a').value;
-      const b = document.getElementById('b').value;
-      const operator = document.getElementById('operator').value;
-
-      if (a === '' || b === '') {
-        return alert("Masukkan kedua angka.");
-      }
-
-      const res = await fetch(`/api/operasi?operator=${operator}&a=${a}&b=${b}`);
-      const data = await res.json();
-
-      document.getElementById('hasil').innerText = `Hasil: ${data.hasil}`;
-    }
-  </script>
-
+  <script src="/mtk/operasi.js"></script>
 </body>
 </html>
