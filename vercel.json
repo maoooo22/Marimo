@@ -6,7 +6,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/mtk/index",
+      "source": "/mtk/operasi",
       "destination": "/mtk/index.js"
     }
   ]
