@@ -243,7 +243,7 @@ function renderSticker() {
   // initial font size guess relative to canvas
   let fontSize = Math.round(canvasPx * 0.28); // heuristic (big for 1 word)
   ctx.textBaseline = 'middle';
-  ctx.textAlign = 'right';
+  ctx.textAlign = 'Left';
 
   // function to compute lines for a fontSize
   function computeLinesForSize(size) {
@@ -280,7 +280,7 @@ function renderSticker() {
   // shadow blur uses CSS pixels; scale slightly with font size
   ctx.fillStyle = textColor;
   ctx.font = `${weight} ${fontSize}px ${selectedFont}, system-ui, Arial`;
-  ctx.textAlign = 'right';
+  ctx.textAlign = 'Left';
   ctx.textBaseline = 'top';
   if (blur > 0) {
     ctx.shadowColor = textColor;
