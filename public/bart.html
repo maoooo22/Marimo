@@ -281,7 +281,7 @@ function renderSticker() {
   ctx.fillStyle = textColor;
   ctx.font = `${weight} ${fontSize}px ${selectedFont}, system-ui, Arial`;
   ctx.textAlign = 'right';
-  ctx.textBaseline = 'middle';
+  ctx.textBaseline = 'top';
   if (blur > 0) {
     ctx.shadowColor = textColor;
     // scale shadowBlur mildly with dpi/fontsize for consistent look
