@@ -3,363 +3,333 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Brat-Bart Sticker Maker (Offline)</title>
-<!-- optional: load Roboto from Google (works offline if host has it; fallback to system fonts) -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>Brat-Bart Sticker Maker — Pro</title>
+
+<!-- Google Fonts (buterkoneksi internet; boleh ganti / offline kalau perlu) -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --ui-bg:#f3f4f6;
-    --card-bg:#ffffff;
-    --accent:#111827;
+    --ui-bg:#f3f4f6; --card-bg:#fff; --accent:#111827;
   }
   *{box-sizing:border-box}
   body{
-    margin:0;
-    font-family: 'Roboto', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background:var(--ui-bg);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    padding:20px;
-    color:#111;
+    margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    background:var(--ui-bg); color:#111; padding:18px; display:flex; justify-content:center;
   }
-
-  .wrap{
-    width:100%;
-    max-width:980px;
-    display:grid;
-    grid-template-columns: 1fr 380px;
-    gap:18px;
-    align-items:start;
-  }
-
-  .card{
-    background:var(--card-bg);
-    border-radius:12px;
-    padding:16px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.07);
-  }
-
-  .controls{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-
-  label{font-size:13px;color:#374151}
+  .wrap{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 420px;gap:18px}
+  .card{background:var(--card-bg);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.07)}
+  h1{margin:0 0 10px;font-size:18px}
+  label{font-size:13px;color:#374151;display:block;margin-bottom:6px}
   textarea{width:100%;min-height:140px;padding:10px;border-radius:8px;border:1px solid #e5e7eb;font-size:15px;resize:vertical}
   .row{display:flex;gap:8px;align-items:center}
   input[type="color"]{width:48px;height:42px;padding:4px;border-radius:8px;border:1px solid #e5e7eb}
-  input[type="number"]{width:100%;padding:8px;border-radius:8px;border:1px solid #e5e7eb}
-  select{padding:8px;border-radius:8px;border:1px solid #e5e7eb}
+  input[type="number"], select, input[type="range"]{padding:8px;border-radius:8px;border:1px solid #e5e7eb}
   button{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:0;cursor:pointer}
   .muted{font-size:13px;color:#6b7280}
-  canvas{display:block;border-radius:6px;background:transparent; width:100%; height:auto; max-width:512px; margin:8px auto}
-
-  /* responsive */
-  @media(max-width:950px){
-    .wrap{grid-template-columns: 1fr}
-  }
-
-  /* small helpers */
-  .inline{display:flex;gap:8px;align-items:center}
+  canvas{display:block;border-radius:6px;background:transparent;width:100%;max-width:512px;margin:10px auto}
+  .controls{display:flex;flex-direction:column;gap:10px}
   .flex{display:flex;gap:8px}
-  .center{justify-content:center;align-items:center}
+  .small{padding:8px;font-size:13px}
+  @media(max-width:980px){.wrap{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- Left: main UI -->
+    <!-- LEFT: controls -->
     <div class="card">
-      <h2 style="margin:0 0 8px">Brat-Bart Sticker Maker (Offline)</h2>
+      <h1>Brat-Bart Sticker Maker — Pro</h1>
       <div class="controls">
         <div>
-          <label>Masukkan teks (multi-baris OK):</label>
+          <label>Masukkan teks (multi-baris OK)</label>
           <textarea id="textInput" placeholder="Ketik teks...">brat</textarea>
         </div>
 
         <div class="row">
           <div style="flex:1">
-            <label>Warna teks:</label>
-            <div class="inline">
-              <input id="colorInput" type="color" value="#000000">
-              <div style="flex:1;margin-left:6px">
-                <select id="fontSelect" title="Font">
-                  <option value="Roboto">Roboto (default)</option>
-                  <option value="Arial">Arial</option>
-                  <option value="Helvetica">Helvetica</option>
-                  <option value="Impact">Impact</option>
-                  <option value="Verdana">Verdana</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div style="width:140px">
-            <label>Ukuran canvas (px)</label>
-            <input id="canvasSize" type="number" min="128" max="2048" value="512">
-          </div>
-        </div>
-
-        <div class="row">
-          <div style="flex:1">
-            <label>Background:</label>
-            <div class="flex">
-              <select id="bgMode">
-                <option value="white">Putih</option>
-                <option value="color">Warna</option>
-                <option value="transparent">Transparan</option>
-              </select>
-              <input id="bgColor" type="color" value="#B8E000" title="Background color" />
-            </div>
-            <div class="muted" style="margin-top:6px">Pilih transparan kalau mau background non-kotak.</div>
-          </div>
-
-          <div style="width:140px">
-            <label>Right padding (px)</label>
-            <input id="rightPad" type="number" min="4" max="200" value="30">
-          </div>
-        </div>
-
-        <div class="row">
-          <div style="flex:1">
-            <label>Blur intensity (0 = no blur)</label>
-            <input id="blurRadius" type="number" min="0" max="50" value="2">
-          </div>
-
-          <div style="width:140px">
-            <label>Font weight</label>
-            <select id="fontWeight">
-              <option value="700">Bold</option>
-              <option value="400">Regular</option>
+            <label>Font</label>
+            <select id="fontSelect">
+              <option value="Roboto">Roboto (default)</option>
+              <option value="Montserrat">Montserrat</option>
+              <option value="Inter">Inter</option>
+              <option value="Arial">Arial</option>
+              <option value="Impact">Impact</option>
             </select>
           </div>
+          <div style="width:140px">
+            <label>Weight</label>
+            <select id="fontWeight"><option value="700">Bold</option><option value="400">Regular</option></select>
+          </div>
         </div>
 
         <div class="row">
-          <button id="renderBtn">Render Preview</button>
-          <button id="downloadPng">Download PNG</button>
-          <button id="downloadWebp">Download WEBP</button>
+          <div style="flex:1">
+            <label>Warna teks</label>
+            <div class="flex"><input id="colorInput" type="color" value="#000000"><div style="flex:1"><input id="fontSizeRange" type="range" min="10" max="220" value="120"></div></div>
+            <div class="muted">Gunakan slider untuk atur ukuran font. Tekan <b>Auto-fit</b> untuk ukuran otomatis.</div>
+          </div>
+          <div style="width:120px">
+            <label>Font size (px)</label>
+            <input id="fontSizeNumber" type="number" value="120" min="8" max="2048">
+          </div>
         </div>
 
-        <div class="muted">Tip: untuk stiker WA, ukuran 512×512 & background putih / transparan direkomendasikan.</div>
+        <div class="row">
+          <div style="flex:1">
+            <label>Background mode</label>
+            <div class="flex">
+              <select id="bgMode"><option value="white">Putih</option><option value="color">Warna</option><option value="transparent">Transparan</option></select>
+              <input id="bgColor" type="color" value="#B8E000">
+            </div>
+          </div>
+          <div style="width:140px">
+            <label>Canvas (px)</label>
+            <input id="canvasSize" type="number" value="512" min="128" max="2048">
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label>Alignment</label>
+            <select id="textAlign"><option value="left">Kiri</option><option value="right">Kanan</option></select>
+          </div>
+          <div style="width:140px">
+            <label>Padding (px)</label>
+            <input id="pad" type="number" value="30" min="4" max="200">
+          </div>
+        </div>
+
+        <div class="row">
+          <div style="flex:1">
+            <label>Blur intensity</label>
+            <input id="blur" type="number" min="0" max="50" value="2" step="0.5">
+          </div>
+          <div style="width:140px">
+            <label>Line gap</label>
+            <input id="lineGap" type="number" value="1.05" step="0.01">
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="autoFitBtn" class="small">Auto-fit</button>
+          <button id="renderBtn" class="small">Render Preview</button>
+          <button id="downloadPng" class="small">Download PNG</button>
+          <button id="downloadWebp" class="small">Download WEBP</button>
+        </div>
+
+        <div class="muted">Tip: Untuk stiker WA gunakan 512×512 dan format WEBP/PNG transparan.</div>
       </div>
     </div>
 
-    <!-- Right: preview -->
-    <div class="card center" style="padding:16px">
+    <!-- RIGHT: preview -->
+    <div class="card" style="text-align:center">
       <label style="font-size:13px">Preview (klik Render setelah ubah)</label>
-      <canvas id="preview" width="512" height="512" aria-label="preview canvas"></canvas>
-      <div class="muted" style="margin-top:8px;text-align:center">Output adalah gambar kotak. Kalau pilih "Transparan", latar tidak akan diisi.</div>
+      <canvas id="preview" width="512" height="512" aria-label="preview"></canvas>
+      <div class="muted" style="margin-top:8px">Preview kotak. Pilih "Transparan" untuk latar non-kotak.</div>
     </div>
   </div>
 
 <script>
-/* --- Utilities & DOM --- */
+/* DOM */
 const preview = document.getElementById('preview');
 const ctx = preview.getContext('2d');
-
 const textInput = document.getElementById('textInput');
 const colorInput = document.getElementById('colorInput');
+const fontSelect = document.getElementById('fontSelect');
+const fontWeight = document.getElementById('fontWeight');
+const fontSizeRange = document.getElementById('fontSizeRange');
+const fontSizeNumber = document.getElementById('fontSizeNumber');
 const bgMode = document.getElementById('bgMode');
 const bgColor = document.getElementById('bgColor');
 const canvasSizeInput = document.getElementById('canvasSize');
-const rightPadInput = document.getElementById('rightPad');
-const blurRadiusInput = document.getElementById('blurRadius');
+const padInput = document.getElementById('pad');
+const blurInput = document.getElementById('blur');
 const renderBtn = document.getElementById('renderBtn');
+const autoFitBtn = document.getElementById('autoFitBtn');
 const downloadPng = document.getElementById('downloadPng');
 const downloadWebp = document.getElementById('downloadWebp');
-const fontSelect = document.getElementById('fontSelect');
-const fontWeight = document.getElementById('fontWeight');
+const textAlignSelect = document.getElementById('textAlign');
+const lineGapInput = document.getElementById('lineGap');
 
-function setCanvasSize(px) {
+function setCanvasSize(px){
   const dpr = Math.max(1, window.devicePixelRatio || 1);
   preview.style.width = px + 'px';
   preview.style.height = px + 'px';
   preview.width = Math.round(px * dpr);
   preview.height = Math.round(px * dpr);
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 
-/* wrap text into lines that fit a maxWidth (right-aligned) */
-function wrapTextToLines(context, text, maxWidth) {
+/* wrap text into lines (preserve explicit newlines) */
+function wrapText(ctx, text, maxWidth){
   const lines = [];
-  // preserve explicit newlines: we'll treat each paragraph separately
   const paragraphs = text.split('\n');
-  for (let p of paragraphs) {
+  for (let p of paragraphs){
     p = p.trim();
-    if (p === '') {
-      lines.push(''); // empty line
-      continue;
-    }
+    if (!p){ lines.push(''); continue; }
     const words = p.split(/\s+/);
     let line = words[0] || '';
-    for (let i = 1; i < words.length; i++) {
+    for (let i=1;i<words.length;i++){
       const test = line + ' ' + words[i];
-      const m = context.measureText(test).width;
-      if (m > maxWidth && line) {
+      if (ctx.measureText(test).width > maxWidth && line){
         lines.push(line);
         line = words[i];
-      } else {
-        line = test;
-      }
+      } else line = test;
     }
     if (line) lines.push(line);
   }
   return lines;
 }
 
-/* main render function */
-function renderSticker() {
-  const canvasPx = parseInt(canvasSizeInput.value, 10) || 512;
+/* compute font-size so text fits — used by Auto-fit */
+function computeAutoFontSize(cfg){
+  const {canvasPx, rawText, weight, fontFamily, pad, lineGap} = cfg;
+  setCanvasSize(canvasPx);
+  const paddingHorizontal = Math.max(12, Math.floor(canvasPx * 0.04));
+  const availableWidth = canvasPx - (paddingHorizontal + pad);
+  const availableHeight = canvasPx - paddingHorizontal*2;
+  let size = Math.round(canvasPx * 0.28);
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'left';
+  let lines = [];
+  let attempts = 0;
+  while (attempts < 90){
+    ctx.font = `${weight} ${size}px ${fontFamily}`;
+    lines = wrapText(ctx, rawText, availableWidth);
+    const total = lines.length * size * lineGap;
+    const tooWide = lines.some(l => ctx.measureText(l).width > availableWidth);
+    if (total <= availableHeight && !tooWide) break;
+    size = Math.max(8, Math.round(size * 0.92));
+    attempts++;
+  }
+  return {size, lines};
+}
+
+/* main render */
+function renderSticker(opts = {}) {
+  const canvasPx = parseInt(canvasSizeInput.value,10) || 512;
   setCanvasSize(canvasPx);
 
-  // settings
   const rawText = String(textInput.value || '');
   const textColor = colorInput.value || '#000';
-  const bgModeVal = bgMode.value;
-  const bgClr = bgColor.value || '#ffffff';
-  const rightPad = Math.max(4, parseInt(rightPadInput.value, 10) || 30);
-  const blur = Math.max(0, parseFloat(blurRadiusInput.value) || 0);
-  const selectedFont = fontSelect.value || 'Roboto';
+  const fontFamily = fontSelect.value || 'Roboto';
   const weight = fontWeight.value || '700';
+  let fontSize = parseInt(fontSizeNumber.value,10) || parseInt(fontSizeRange.value,10) || Math.round(canvasPx*0.18);
+  const pad = Math.max(4, parseInt(padInput.value,10) || 30);
+  const blur = Math.max(0, parseFloat(blurInput.value) || 0);
+  const alignMode = textAlignSelect.value || 'left';
+  const lineGap = Math.max(0.9, parseFloat(lineGapInput.value) || 1.05);
 
-  // clear / background
-  if (bgModeVal === 'transparent') {
-    // clear (transparent)
-    ctx.clearRect(0, 0, canvasPx, canvasPx);
+  // background
+  if (bgMode.value === 'transparent'){
+    ctx.clearRect(0,0,canvasPx,canvasPx);
   } else {
-    ctx.fillStyle = (bgModeVal === 'white') ? '#ffffff' : bgClr;
-    ctx.fillRect(0, 0, canvasPx, canvasPx);
+    ctx.fillStyle = (bgMode.value === 'white' ? '#fff' : bgColor.value);
+    ctx.fillRect(0,0,canvasPx,canvasPx);
   }
 
-  // prepare font sizing algorithm:
-  // start large and shrink until fits both width and height
+  // available dims
   const paddingHorizontal = Math.max(12, Math.floor(canvasPx * 0.04));
-  const availableWidth = canvasPx - (paddingHorizontal + rightPad); // width for text (from left to x-rightPad)
-  const availableHeight = canvasPx - paddingHorizontal * 2;
+  const availableWidth = canvasPx - (paddingHorizontal + pad);
+  const availableHeight = canvasPx - paddingHorizontal*2;
 
-  // initial font size guess relative to canvas
-  let fontSize = Math.round(canvasPx * 0.28); // heuristic (big for 1 word)
+  // compute lines & dynamic fit if needed
   ctx.textBaseline = 'middle';
-  ctx.textAlign = 'Left';
+  ctx.textAlign = alignMode;
+  ctx.fillStyle = textColor;
 
-  // function to compute lines for a fontSize
-  function computeLinesForSize(size) {
-    ctx.font = `${weight} ${size}px ${selectedFont}, system-ui, Arial`;
-    return wrapTextToLines(ctx, rawText, availableWidth);
+  // If opts.autoFit requested compute proper font size
+  if (opts.autoFit){
+    const res = computeAutoFontSize({
+      canvasPx, rawText, weight, fontFamily, pad, lineGap
+    });
+    fontSize = res.size;
   }
 
-  let lines = computeLinesForSize(fontSize);
-  const lineHeightFactor = 1.05 + (fontSize / 1000); // slight adapt
+  ctx.font = `${weight} ${fontSize}px ${fontFamily}, system-ui, Arial`;
+  let lines = wrapText(ctx, rawText, availableWidth);
 
-  // shrink loop until fits
+  // if too tall, shrink until fits
   let attempts = 0;
-  while ((lines.length * fontSize * lineHeightFactor > availableHeight || lines.some(l => ctx.measureText(l).width > availableWidth)) && attempts < 80) {
+  while ((lines.length * fontSize * lineGap > availableHeight || lines.some(l=>ctx.measureText(l).width > availableWidth)) && attempts < 80){
     fontSize = Math.max(8, Math.round(fontSize * 0.92));
-    lines = computeLinesForSize(fontSize);
+    ctx.font = `${weight} ${fontSize}px ${fontFamily}, system-ui, Arial`;
+    lines = wrapText(ctx, rawText, availableWidth);
     attempts++;
   }
 
-  // if still too tall, trim lines & ellipsize last
-  const maxLines = Math.floor(availableHeight / (fontSize * lineHeightFactor));
-  if (lines.length > maxLines) {
+  // if still too many lines, trim & ellipsize last
+  const maxLines = Math.floor(availableHeight / (fontSize * lineGap)) || 1;
+  if (lines.length > maxLines){
     lines = lines.slice(0, Math.max(1, maxLines));
-    // ellipsize last line
-    let last = lines[lines.length - 1];
-    ctx.font = `${weight} ${fontSize}px ${selectedFont}, system-ui, Arial`;
-    while (ctx.measureText(last + '…').width > availableWidth && last.length > 0) {
-      last = last.slice(0, -1);
+    let last = lines[lines.length-1];
+    ctx.font = `${weight} ${fontSize}px ${fontFamily}, system-ui, Arial`;
+    while (ctx.measureText(last + '…').width > availableWidth && last.length>0){
+      last = last.slice(0,-1);
     }
-    lines[lines.length - 1] = last + (last.length ? '…' : '');
+    lines[lines.length-1] = last + (last.length ? '…' : '');
   }
 
-  // draw text with blur/shadow
-  const x = canvasPx - rightPad; // right aligned x
-  // shadow blur uses CSS pixels; scale slightly with font size
-  ctx.fillStyle = textColor;
-  ctx.font = `${weight} ${fontSize}px ${selectedFont}, system-ui, Arial`;
-  ctx.textAlign = 'Left';
-  ctx.textBaseline = 'top';
-  if (blur > 0) {
+  // draw text with blur shadow
+  const x = (alignMode === 'left') ? (paddingHorizontal) : (canvasPx - pad);
+  ctx.font = `${weight} ${fontSize}px ${fontFamily}, system-ui, Arial`;
+  ctx.textAlign = alignMode;
+  ctx.textBaseline = 'middle';
+  if (blur > 0){
     ctx.shadowColor = textColor;
-    // scale shadowBlur mildly with dpi/fontsize for consistent look
     ctx.shadowBlur = blur;
   } else {
     ctx.shadowBlur = 0;
     ctx.shadowColor = 'transparent';
   }
-
-  // center vertically
-  const totalHeight = lines.length * fontSize * lineHeightFactor;
-  let startY = (canvasPx - totalHeight) / 2 + (fontSize * lineHeightFactor) / 2;
-
-  // draw each line
   ctx.fillStyle = textColor;
-  for (let i = 0; i < lines.length; i++) {
-    const y = startY + i * fontSize * lineHeightFactor;
+
+  // vertical centering
+  const totalH = lines.length * fontSize * lineGap;
+  let startY = (canvasPx - totalH) / 2 + (fontSize * lineGap)/2;
+
+  for (let i=0;i<lines.length;i++){
+    const y = startY + i * fontSize * lineGap;
     ctx.fillText(lines[i], x, y);
   }
+
+  // reflect chosen fontSize to controls
+  fontSizeNumber.value = fontSize;
+  fontSizeRange.value = fontSize;
 }
 
-/* initial setup / events */
-function safeRender() {
-  try {
-    renderSticker();
-  } catch (e) {
-    console.error(e);
-  }
-}
+/* events & helpers */
+renderBtn.addEventListener('click', ()=>renderSticker());
+autoFitBtn.addEventListener('click', ()=>renderSticker({autoFit:true}));
 
-renderBtn.addEventListener('click', safeRender);
-canvasSizeInput.addEventListener('change', safeRender);
-bgMode.addEventListener('change', () => {
-  bgColor.style.display = (bgMode.value === 'color') ? 'inline-block' : (bgMode.value === 'white' ? 'none' : 'none');
-  // if transparent or white: hide color picker (but leave value)
-  if (bgMode.value === 'color') bgColor.style.display = 'inline-block';
-  else bgColor.style.display = 'none';
-  safeRender();
-});
+// keep range/number in sync
+fontSizeRange.addEventListener('input', ()=>{ fontSizeNumber.value = fontSizeRange.value; renderSticker(); });
+fontSizeNumber.addEventListener('input', ()=>{ fontSizeRange.value = fontSizeNumber.value; renderSticker(); });
 
-// show/hide bg picker depending on default state
-if (bgMode.value !== 'color') bgColor.style.display = 'none';
+// live update for many controls (debounced)
+const liveEls = [textInput, colorInput, fontSelect, fontWeight, bgMode, bgColor, canvasSizeInput, padInput, blurInput, textAlignSelect, lineGapInput];
+liveEls.forEach(el => el.addEventListener('input', ()=>{ clearTimeout(window._r); window._r = setTimeout(()=>renderSticker(), 120); }));
 
-[ textInput, colorInput, bgColor, rightPadInput, blurRadiusInput, fontSelect, fontWeight ].forEach(el=>{
-  el.addEventListener('input', () => {
-    // debounce slight
-    clearTimeout(window._rb);
-    window._rb = setTimeout(safeRender, 110);
-  });
-});
+canvasSizeInput.addEventListener('change', ()=>renderSticker());
 
-downloadPng.addEventListener('click', () => {
-  // produce PNG with current canvas content (has correct DPR)
-  const mime = 'image/png';
-  const data = preview.toDataURL(mime);
+// downloads (preserve DPR content)
+function downloadDataURL(mime, filename, quality=0.92){
+  // create a temporary link and download
+  const data = preview.toDataURL(mime, quality);
   const a = document.createElement('a');
   a.href = data;
-  a.download = `bratbart-${canvasSizeInput.value}px.png`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   a.remove();
-});
+}
 
-downloadWebp.addEventListener('click', () => {
-  const mime = 'image/webp';
-  // some browsers may not support webp canvas export; fallback handled by browser
-  const data = preview.toDataURL(mime, 0.92);
-  const a = document.createElement('a');
-  a.href = data;
-  a.download = `bratbart-${canvasSizeInput.value}px.webp`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-});
+downloadPng.addEventListener('click', ()=>downloadDataURL('image/png', `bratbart-${canvasSizeInput.value}px.png`));
+downloadWebp.addEventListener('click', ()=>downloadDataURL('image/webp', `bratbart-${canvasSizeInput.value}px.webp`));
 
 // initial render
-safeRender();
+renderSticker();
 
 </script>
 </body>
-            </html>
+                                                                           </html>
