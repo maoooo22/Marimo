@@ -52,7 +52,7 @@ app.delete('/api', (req, res) => {
   res.json({ ok: true, removed: before - store.length });
 });
 
-app.use(express.static('.')); // biar bisa serve grow.html
+app.use(express.static('public')); // biar bisa serve grow.html
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
