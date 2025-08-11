@@ -1,0 +1,205 @@
+<!doctype html>
+
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pencari Ayat Al-Qur'an (API + Fuzzy)</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{max-width:980px;margin:28px auto;padding:18px;background:#f7f7fb;color:#111;border-radius:12px}
+    h1{font-size:20px;margin:0 0 8px}
+    .card{background:#fff;padding:12px;border-radius:10px;box-shadow:0 6px 20px rgba(10,10,30,0.04)}
+    .controls{display:flex;gap:8px;align-items:center;margin:10px 0}
+    input[type=text]{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd}
+    button{padding:10px 14px;border-radius:8px;border:0;background:#0b7ef7;color:white;cursor:pointer}
+    label{font-size:13px}
+    .small{font-size:13px;color:#666}
+    .result{padding:10px;border-bottom:1px solid #eee}
+    .arab{font-family:'Scheherazade New', 'Noto Naskh Arabic', serif;font-size:20px;direction:rtl}
+    .meta{font-size:13px;color:#444}
+    .score{float:right;font-size:12px;color:#999}
+    .hint{font-size:13px;color:#666;margin-top:10px}
+  </style>
+</head>
+<body>
+  <h1>Pencari Ayat Al-Qur'an — API + Fuzzy (Fuse.js)</h1>
+  <div class="card">
+    <p class="small">Ketik potongan ayat (Arab atau transliterasi/terjemahan). Sistem akan melakukan pencarian fuzzy sehingga typo/variasi kecil masih bisa ketemu. Data diambil dari API publik (fetch pertama kali), lalu di-cache di <code>localStorage</code>.</p><div class="controls">
+  <input id="q" type="text" placeholder="Masukkan potongan ayat, contoh: innal abroro nafi na'im" />
+  <button id="search">Cari</button>
+  <button id="clear" title="Hapus cache" style="background:#f14e4e;margin-left:6px">Clear cache</button>
+</div>
+
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:8px">
+  <label><input type="checkbox" id="searchArabic" checked /> Cari di teks Arab</label>
+  <label><input type="checkbox" id="searchTranslation" checked /> Cari di terjemahan</label>
+  <label style="margin-left:auto" class="small">Threshold: <input id="threshold" type="range" min="0" max="1" step="0.01" value="0.45"/></label>
+</div>
+
+<div id="status" class="small hint">Status: menunggu input. Jika pertama kali, sistem akan mendownload data Al-Qur'an — sabar sebentar.</div>
+<div id="results"></div>
+
+  </div>  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>  <script>
+    // --- CONFIG ---
+    const API_URL = 'https://api.quran.sutanlab.id/quran'; // default: public API yang sering tersedia
+    const STORAGE_KEY = 'alquran_cache_v1';
+
+    // --- helper untuk mapping data ---
+    function flattenQuran(apiData){
+      // Banyak API mengembalikan struktur: data.surahs[] -> ayahs[]
+      // Kita coba deteksi pola umum dan flatten jadi array {surah, surahNumber, ayah, ayahNumber, text, translation}
+      const out = [];
+      const d = apiData?.data || apiData;
+      if(!d) return out;
+
+      // case: data.surahs
+      if(Array.isArray(d.surahs)){
+        d.surahs.forEach(s => {
+          const surahName = s.name || s.englishName || s.longName || s.translation || ('Surah '+(s.number||'?'));
+          const sNum = s.number || s.numberOfSurahs || null;
+          const ayahs = s.ayahs || s.verses || s.ayah || s.chapters || [];
+          if(Array.isArray(ayahs)){
+            ayahs.forEach(a => {
+              const text = a.text || a.arab || a.ar || (a.text && a.text.arab) || '';
+              const translation = (a.translation && (a.translation.id || a.translation.en)) || a.translation || a.translation_text || a.trans || '';
+              out.push({surah: surahName, surahNumber: sNum, ayahNumber: a.numberInSurah || a.number || a.ayat || null, text: text, translation: translation});
+            });
+          }
+        });
+      }
+
+      // fallback: some APIs return data.quran.* or data.chapters
+      if(out.length===0){
+        // try find any array of verses deeper
+        function recurse(obj){
+          if(!obj || typeof obj !== 'object') return;
+          for(const k of Object.keys(obj)){
+            const v = obj[k];
+            if(Array.isArray(v)){
+              if(v.length && v[0] && (v[0].text || v[0].arab || v[0].ayah)){
+                v.forEach(a => {
+                  out.push({surah: obj.name || 'unknown', surahNumber: obj.number || null, ayahNumber: a.numberInSurah||a.number||null, text: a.text||a.arab||'', translation: a.translation||''});
+                });
+                return;
+              } else {
+                v.forEach(item => recurse(item));
+              }
+            } else if(typeof v === 'object') recurse(v);
+          }
+        }
+        recurse(d);
+      }
+
+      return out;
+    }
+
+    // --- UI references ---
+    const qEl = document.getElementById('q');
+    const sBtn = document.getElementById('search');
+    const clearBtn = document.getElementById('clear');
+    const resultsEl = document.getElementById('results');
+    const statusEl = document.getElementById('status');
+    const searchArabicEl = document.getElementById('searchArabic');
+    const searchTransEl = document.getElementById('searchTranslation');
+    const thresholdEl = document.getElementById('threshold');
+
+    let verses = []; // flattened
+    let fuse = null;
+
+    async function loadData(){
+      statusEl.textContent = 'Status: memeriksa cache...';
+      const cached = localStorage.getItem(STORAGE_KEY);
+      if(cached){
+        try{
+          verses = JSON.parse(cached);
+          statusEl.textContent = 'Status: data dimuat dari cache ('+verses.length+' ayat).';
+          buildFuse();
+          return;
+        }catch(e){
+          console.warn('cache parse error', e);
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      }
+
+      statusEl.textContent = 'Status: mengunduh data dari API — ini perlu koneksi. Sabar...';
+      try{
+        const res = await fetch(API_URL);
+        if(!res.ok) throw new Error('API fetch gagal: '+res.status);
+        const data = await res.json();
+        verses = flattenQuran(data);
+        if(verses.length===0) throw new Error('Tidak menemukan struktur ayat standar. Periksa endpoint API.');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(verses));
+        statusEl.textContent = 'Status: data berhasil diunduh dan di-cache ('+verses.length+' ayat).';
+        buildFuse();
+      }catch(err){
+        console.error(err);
+        statusEl.textContent = 'Status: gagal mengambil data — '+err.message;
+      }
+    }
+
+    function buildFuse(){
+      const keys = [];
+      if(searchArabicEl.checked) keys.push({name:'text', weight:0.7});
+      if(searchTransEl.checked) keys.push({name:'translation', weight:0.3});
+      if(keys.length===0){
+        statusEl.textContent = 'Status: pilih minimal satu sumber pencarian (Arab/terjemahan).';
+        return;
+      }
+
+      const options = {
+        includeScore: true,
+        includeMatches: true,
+        threshold: parseFloat(thresholdEl.value),
+        keys: keys.map(k => k.name)
+      };
+      fuse = new Fuse(verses, options);
+    }
+
+    function renderResults(list){
+      resultsEl.innerHTML = '';
+      if(!list || list.length===0){
+        resultsEl.innerHTML = '<div class="hint">Tidak ada hasil.</div>';
+        return;
+      }
+
+      list.forEach(item => {
+        const v = item.item || item; // if fuse result
+        const score = item.score!=null ? (Math.round(item.score*1000)/1000) : '';
+        const r = document.createElement('div'); r.className='result card';
+        r.innerHTML = `
+          <div class="meta">Surah <strong>${escapeHtml(v.surah)}</strong> — Ayat <strong>${v.ayahNumber||'?'}</strong> <span class="score">score ${score}</span></div>
+          <div class="arab">${escapeHtml(v.text||'')}</div>
+          <div class="small">${escapeHtml(v.translation||'')}</div>
+        `;
+        resultsEl.appendChild(r);
+      });
+    }
+
+    function escapeHtml(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    // --- events ---
+    sBtn.addEventListener('click', () => doSearch());
+    qEl.addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+    clearBtn.addEventListener('click', ()=>{ localStorage.removeItem(STORAGE_KEY); verses=[]; fuse=null; statusEl.textContent='Status: cache dihapus.'; resultsEl.innerHTML=''; });
+    searchArabicEl.addEventListener('change', () => { if(verses.length) buildFuse(); });
+    searchTransEl.addEventListener('change', () => { if(verses.length) buildFuse(); });
+    thresholdEl.addEventListener('input', () => { if(verses.length) buildFuse(); });
+
+    async function doSearch(){
+      const q = qEl.value.trim();
+      if(!q) { statusEl.textContent = 'Status: masukkan query dulu.'; return; }
+      if(!verses || verses.length===0){ statusEl.textContent='Status: data belum siap. Mengunduh...'; await loadData(); }
+      if(!fuse){ buildFuse(); }
+      if(!fuse) { statusEl.textContent='Status: Fuse belum siap.'; return; }
+
+      statusEl.textContent = 'Status: mencari...';
+      const results = fuse.search(q, {limit: 50});
+      renderResults(results);
+      statusEl.textContent = `Status: selesai. Menampilkan ${results.length} hasil (threshold ${thresholdEl.value}).`;
+    }
+
+    // --- kick off ---
+    loadData();
+  </script></body>
+  </html>
