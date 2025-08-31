@@ -7,23 +7,14 @@
   <meta name="description" content="Website portofolio Marimo, seorang web developer muda dari Bekasi. Lihat karya dan proyek terbarunya di sini.">
   <link rel="icon" href="https://www.hyuraa.my.id/favicon.png" type="image/png" />
   
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #111827;
-      color: #E5E7EB;
-    }
+    body { font-family: 'Inter', sans-serif; background-color: #111827; color: #E5E7EB; }
     .highlight { color: #38BDF8; }
     .cursor::after { content: '|'; animation: blink 0.7s infinite; }
     @keyframes blink { 50% { opacity: 0; } }
@@ -36,110 +27,20 @@
 </head>
 <body class="antialiased">
 
-  <!-- Navbar -->
-  <nav class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-2xl font-bold text-white tracking-wider">Marimo</div>
-      <div class="hidden md:flex space-x-8 items-center">
-        <a href="#home" class="text-gray-300 hover:text-sky-400 transition-colors">Home</a>
-        <a href="#about" class="text-gray-300 hover:text-sky-400 transition-colors">Tentang</a>
-        <a href="#skills" class="text-gray-300 hover:text-sky-400 transition-colors">Skill</a>
-        <a href="#projects" class="text-gray-300 hover:text-sky-400 transition-colors">Proyek</a>
-        <a href="#contact" class="text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a>
-      </div>
-      <button id="hamburger" class="md:hidden text-white focus:outline-none"><i class="fas fa-bars fa-xl"></i></button>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
-      <a href="#home" class="block text-gray-300 hover:text-sky-400 transition-colors">Home</a>
-      <a href="#about" class="block text-gray-300 hover:text-sky-400 transition-colors">Tentang</a>
-      <a href="#skills" class="block text-gray-300 hover:text-sky-400 transition-colors">Skill</a>
-      <a href="#projects" class="block text-gray-300 hover:text-sky-400 transition-colors">Proyek</a>
-      <a href="#contact" class="block text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="min-h-screen flex items-center justify-center text-center bg-gray-900" id="home">
-    <div class="container mx-auto px-6">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">HI, I'M MARIMO<br><span class="highlight cursor" id="type-text"></span></h1>
-      <p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg">Saya seorang siswa SMP dari Bekasi, Indonesia dengan ketertarikan besar pada dunia Web Development.</p>
-      <a href="#projects" class="mt-8 inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">Lihat Proyek Saya</a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="py-20" id="about">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="section-title">Tentang Saya</h2>
-      <p class="max-w-3xl mx-auto text-gray-400 md:text-xl">
-        Saya adalah seorang pelajar SMP dari Serang Baru, Bekasi. Saya tertarik dengan dunia pengembangan web dan eksperimen teknologi. Saya suka belajar dan menjelajahi hal-hal baru untuk memperluas wawasan saya.
-      </p>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section class="py-20 bg-gray-900" id="skills">
-    <div class="container mx-auto px-6">
-      <h2 class="section-title">Skill Saya</h2>
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-html5 mr-3" style="color:#e34c26;"></i> HTML</span><span class="text-gray-400">83%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 83%"></div></div></div>
-        <div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-css3-alt mr-3" style="color:#264de4;"></i> CSS</span><span class="text-gray-400">80%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 80%"></div></div></div>
-        <div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-js-square mr-3" style="color:#f0db4f;"></i> JavaScript</span><span class="text-gray-400">70%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 70%"></div></div></div>
-        <div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-python mr-3" style="color:#306998;"></i> Python</span><span class="text-gray-400">75%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 75%"></div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section class="py-20" id="projects">
-    <div class="container mx-auto px-6">
-      <h2 class="section-title">Proyek Unggulan</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"><img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="w-full h-56 object-cover"><div class="p-6"><h3 class="text-2xl font-bold mb-2 text-white">NGL Bot</h3><p class="text-gray-400 mb-4">Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p><ul class="space-y-2 text-gray-300"><li>✅ Atur custom pesan dan jumlah</li><li>✅ Tampilan clean dan responsif</li><li>✅ Backend fetch API langsung dari browser</li></ul><a href="https://ngl-spam-inky.vercel.app" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Kunjungi Situs &rarr;</a></div></div>
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"><img src="https://i.postimg.cc/MprRqRC5/Screenshot-20250811-223133.jpg" alt="Tampilan Bart generator" class="w-full h-56 object-cover"><div class="p-6"><h3 class="text-2xl font-bold mb-2 text-white">Bart Generator</h3><p class="text-gray-400 mb-4">Generator meme Bart Simpson yang dibuat murni dengan frontend, tanpa API eksternal.</p><ul class="space-y-2 text-gray-300"><li>✅ Custom pesan teks pada papan tulis</li><li>✅ Kualitas gambar tinggi</li><li>✅ 100% gratis dan tanpa iklan</li></ul><a href="https://hyuraa.my.id/bart" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Coba Generator &rarr;</a></div></div>
-      </div>
-    </div>
-  </section>
+  <!-- Bagian HTML (Navbar, Hero, dll.) tidak berubah -->
+  <nav class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20"><div class="container mx-auto px-6 py-4 flex justify-between items-center"><div class="text-2xl font-bold text-white tracking-wider">Marimo</div><div class="hidden md:flex space-x-8 items-center"><a href="#home" class="text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div><button id="hamburger" class="md:hidden text-white focus:outline-none"><i class="fas fa-bars fa-xl"></i></button></div><div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2"><a href="#home" class="block text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="block text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="block text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="block text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="block text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div></nav>
+  <section class="min-h-screen flex items-center justify-center text-center bg-gray-900" id="home"><div class="container mx-auto px-6"><h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">HI, I'M MARIMO<br><span class="highlight cursor" id="type-text"></span></h1><p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg">Saya seorang siswa SMP dari Bekasi, Indonesia dengan ketertarikan besar pada dunia Web Development.</p><a href="#projects" class="mt-8 inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">Lihat Proyek Saya</a></div></section>
+  <section class="py-20" id="about"><div class="container mx-auto px-6 text-center"><h2 class="section-title">Tentang Saya</h2><p class="max-w-3xl mx-auto text-gray-400 md:text-xl">Saya adalah seorang pelajar SMP dari Serang Baru, Bekasi. Saya tertarik dengan dunia pengembangan web dan eksperimen teknologi. Saya suka belajar dan menjelajahi hal-hal baru untuk memperluas wawasan saya.</p></div></section>
+  <section class="py-20 bg-gray-900" id="skills"><div class="container mx-auto px-6"><h2 class="section-title">Skill Saya</h2><div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8"><div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-html5 mr-3" style="color:#e34c26;"></i> HTML</span><span class="text-gray-400">83%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 83%"></div></div></div><div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-css3-alt mr-3" style="color:#264de4;"></i> CSS</span><span class="text-gray-400">80%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 80%"></div></div></div><div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-js-square mr-3" style="color:#f0db4f;"></i> JavaScript</span><span class="text-gray-400">70%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 70%"></div></div></div><div class="bg-gray-800 p-6 rounded-lg"><div class="flex items-center justify-between mb-2"><span class="text-lg font-semibold flex items-center"><i class="fab fa-python mr-3" style="color:#306998;"></i> Python</span><span class="text-gray-400">75%</span></div><div class="w-full bg-gray-700 rounded-full h-2.5"><div class="skill-fill" style="width: 75%"></div></div></div></div></div></section>
+  <section class="py-20" id="projects"><div class="container mx-auto px-6"><h2 class="section-title">Proyek Unggulan</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-10"><div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"><img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="w-full h-56 object-cover"><div class="p-6"><h3 class="text-2xl font-bold mb-2 text-white">NGL Bot</h3><p class="text-gray-400 mb-4">Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p><ul class="space-y-2 text-gray-300"><li>✅ Atur custom pesan dan jumlah</li><li>✅ Tampilan clean dan responsif</li><li>✅ Backend fetch API langsung dari browser</li></ul><a href="https://ngl-spam-inky.vercel.app" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Kunjungi Situs &rarr;</a></div></div><div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105"><img src="https://i.postimg.cc/MprRqRC5/Screenshot-20250811-223133.jpg" alt="Tampilan Bart generator" class="w-full h-56 object-cover"><div class="p-6"><h3 class="text-2xl font-bold mb-2 text-white">Bart Generator</h3><p class="text-gray-400 mb-4">Generator meme Bart Simpson yang dibuat murni dengan frontend, tanpa API eksternal.</p><ul class="space-y-2 text-gray-300"><li>✅ Custom pesan teks pada papan tulis</li><li>✅ Kualitas gambar tinggi</li><li>✅ 100% gratis dan tanpa iklan</li></ul><a href="https://hyuraa.my.id/bart" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Coba Generator &rarr;</a></div></div></div></div></section>
+  <section class="py-20 bg-gray-900" id="contact"><div class="container mx-auto px-6 text-center"><h2 class="section-title">Media Sosial</h2><p class="max-w-2xl mx-auto text-gray-400 mb-10">Terhubung dengan saya melalui platform berikut.</p><div class="flex justify-center items-center space-x-8 md:space-x-12"><a href="https://instagram.com/marimo_2553" target="_blank" class="social-icon"><i class="fab fa-instagram fa-3x"></i></a><a href="https://tiktok.com/@galngpremium0" target="_blank" class="social-icon"><i class="fab fa-tiktok fa-3x"></i></a><a href="https://t.me/maoo_2553" target="_blank" class="social-icon"><i class="fab fa-telegram fa-3x"></i></a></div></div></section>
+  <section class="py-20" id="comments"><div class="container mx-auto px-6 max-w-3xl"><h2 class="section-title">Tinggalkan Komentar</h2><form id="comment-form" class="space-y-4"><input type="email" id="email" placeholder="Alamat email kamu" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"><input type="text" id="username" placeholder="Nama atau username" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"><textarea id="comment" placeholder="Tulis komentar kamu di sini..." required rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"></textarea><button type="submit" id="submit-button" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 disabled:bg-gray-500">Kirim Komentar</button></form><div id="comments-list" class="mt-12"><p class="text-center text-gray-500">Memuat komentar...</p></div></div></section>
+  <footer class="bg-gray-900 py-8 text-center text-gray-500"><p>&copy; 2025 Marimo. Dibuat dengan <i class="fas fa-heart text-red-500"></i> di Bekasi.</p></footer>
   
-  <!-- Social Media Section -->
-  <section class="py-20 bg-gray-900" id="contact">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="section-title">Media Sosial</h2>
-      <p class="max-w-2xl mx-auto text-gray-400 mb-10">Terhubung dengan saya melalui platform berikut.</p>
-      <div class="flex justify-center items-center space-x-8 md:space-x-12">
-        <a href="https://instagram.com/marimo_2553" target="_blank" class="social-icon"><i class="fab fa-instagram fa-3x"></i></a>
-        <a href="https://tiktok.com/@galngpremium0" target="_blank" class="social-icon"><i class="fab fa-tiktok fa-3x"></i></a>
-        <a href="https://t.me/maoo_2553" target="_blank" class="social-icon"><i class="fab fa-telegram fa-3x"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Comments Section -->
-  <section class="py-20" id="comments">
-    <div class="container mx-auto px-6 max-w-3xl">
-      <h2 class="section-title">Tinggalkan Komentar</h2>
-      <form id="comment-form" class="space-y-4">
-        <input type="email" id="email" placeholder="Alamat email kamu" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
-        <input type="text" id="username" placeholder="Nama atau username" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
-        <textarea id="comment" placeholder="Tulis komentar kamu di sini..." required rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"></textarea>
-        <button type="submit" id="submit-button" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 disabled:bg-gray-500">Kirim Komentar</button>
-      </form>
-      <div id="comments-list" class="mt-12">
-        <p class="text-center text-gray-500">Memuat komentar...</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 py-8 text-center text-gray-500">
-    <p>&copy; 2025 Marimo. Dibuat dengan <i class="fas fa-heart text-red-500"></i> di Bekasi.</p>
-  </footer>
-  
-  <!-- Supabase Client Library -->
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-    // UI Logic
+    // UI Logic (Tidak berubah)
     document.addEventListener('DOMContentLoaded', () => {
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -153,12 +54,9 @@
                 const currentWord = words[wordIndex];
                 let typeSpeed = 150;
                 if (isDeleting) {
-                    typeText.textContent = currentWord.substring(0, charIndex - 1);
-                    charIndex--;
-                    typeSpeed = 75;
+                    typeText.textContent = currentWord.substring(0, charIndex - 1); charIndex--; typeSpeed = 75;
                 } else {
-                    typeText.textContent = currentWord.substring(0, charIndex + 1);
-                    charIndex++;
+                    typeText.textContent = currentWord.substring(0, charIndex + 1); charIndex++;
                 }
                 if (!isDeleting && charIndex === currentWord.length) {
                     typeSpeed = 2000; isDeleting = true;
@@ -173,7 +71,7 @@
 
     // Supabase Logic
     const SUPABASE_URL = 'https://zvxkltvmrfxgrlrrekob.supabase.co'; 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGhTKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const commentForm = document.getElementById('comment-form');
@@ -181,105 +79,69 @@
     const submitButton = document.getElementById('submit-button');
     const placeholder = document.querySelector('#comments-list p');
 
-    // Function to create a comment element
+    // Helper untuk membuat elemen komentar
     function createCommentElement(commentData) {
         const div = document.createElement('div');
         div.className = 'comment-box flex items-start space-x-4';
-        
-        const firstLetter = escapeHTML(commentData.username).charAt(0).toUpperCase();
+        const firstLetter = (commentData.username || '').charAt(0).toUpperCase();
         const timestamp = new Date(commentData.created_at);
-        const dateString = new Intl.DateTimeFormat('id-ID', {
-            day: 'numeric', month: 'long', year: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        }).format(timestamp).replace('.',':');
-
-        div.innerHTML = `
-            <div class="flex-shrink-0">
-                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                    <span class="text-sky-400 font-bold">${firstLetter}</span>
-                </div>
-            </div>
-            <div class="flex-grow">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-baseline space-x-2">
-                        <p class="font-bold text-white">${escapeHTML(commentData.username)}</p>
-                        <p class="text-xs text-gray-500 hidden sm:block">${escapeHTML(commentData.email)}</p>
-                    </div>
-                    <p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p> 
-                </div>
-                <p class="mt-1 text-gray-300">${escapeHTML(commentData.comment)}</p>
-            </div>
-        `;
-        // Use a short timeout to trigger the CSS transition
-        setTimeout(() => {
-            div.classList.add('visible');
-        }, 10);
+        const dateString = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(timestamp).replace('.',':');
+        div.innerHTML = `<div class="flex-shrink-0"><div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center"><span class="text-sky-400 font-bold">${firstLetter}</span></div></div><div class="flex-grow"><div class="flex justify-between items-center"><div class="flex items-baseline space-x-2"><p class="font-bold text-white">${commentData.username}</p><p class="text-xs text-gray-500 hidden sm:block">${commentData.email}</p></div><p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p></div><p class="mt-1 text-gray-300">${commentData.comment}</p></div>`;
+        setTimeout(() => { div.classList.add('visible'); }, 10);
         return div;
     }
     
-    // Function to submit a new comment
+    // Handler untuk form submit
     commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitButton.disabled = true;
         submitButton.textContent = 'Mengirim...';
-
         const { error } = await supabase.from('comments').insert([{ 
             email: document.getElementById('email').value.trim(), 
             username: document.getElementById('username').value.trim(), 
             comment: document.getElementById('comment').value.trim() 
         }]);
-
-        if (error) {
-            console.error('Error submitting comment:', error);
-            alert('Gagal mengirim komentar.');
-        } else {
-            commentForm.reset();
-        }
+        if (error) { alert('Gagal mengirim komentar: ' + error.message); } 
+        else { commentForm.reset(); }
         submitButton.disabled = false;
         submitButton.textContent = 'Kirim Komentar';
     });
 
-    // Function to load initial comments
-    async function loadInitialComments() {
+    // Handler untuk menampilkan komentar baru yang masuk secara real-time
+    const handleNewComment = (payload) => {
+        if (placeholder) {
+            placeholder.remove();
+        }
+        const newCommentElement = createCommentElement(payload.new);
+        commentsList.prepend(newCommentElement); // Taruh di paling atas
+    };
+    
+    // Fungsi utama untuk memuat dan mendengarkan komentar
+    async function initializeComments() {
+        // 1. Muat komentar yang sudah ada
         const { data, error } = await supabase.from('comments').select('*').order('created_at', { ascending: false });
-
         if (error) {
-            console.error('Error loading comments:', error);
-            placeholder.textContent = 'Tidak dapat memuat komentar.';
-            placeholder.classList.add('text-red-500');
+            placeholder.textContent = 'Gagal memuat komentar.';
             return;
         }
-        
         if (data.length > 0) {
-            placeholder.remove();
+            if (placeholder) placeholder.remove();
             data.forEach(comment => commentsList.appendChild(createCommentElement(comment)));
         } else {
             placeholder.textContent = 'Belum ada komentar. Jadilah yang pertama!';
         }
+
+        // 2. Dengarkan komentar baru
+        supabase
+          .channel('public:comments')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'comments' }, handleNewComment)
+          .subscribe();
     }
 
-    function escapeHTML(str) {
-        if (!str) return '';
-        const p = document.createElement('p');
-        p.appendChild(document.createTextNode(str));
-        return p.innerHTML;
-    }
-
-    // Load initial data
-    loadInitialComments();
-
-    // Listen for new comments in real-time
-    supabase
-      .channel('public:comments')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'comments' }, payload => {
-        console.log('New comment received!', payload.new);
-        if (placeholder) placeholder.remove();
-        const newCommentElement = createCommentElement(payload.new);
-        commentsList.prepend(newCommentElement); // Prepend adds the new comment to the top
-      })
-      .subscribe();
+    // Jalankan fungsi utama
+    initializeComments();
 
   </script>
 
 </body>
-  </html>
+</html>
