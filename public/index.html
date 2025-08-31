@@ -219,7 +219,6 @@
         <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300">Kirim Komentar</button>
       </form>
       <div id="comments-list" class="mt-12">
-        <p class="text-center text-gray-500">Memuat komentar...</p>
         <!-- Comments will be rendered here by JavaScript -->
       </div>
     </div>
@@ -237,109 +236,146 @@
     import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
     // --- UI Logic ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Navbar toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
 
-    // Navbar toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+        // Typing Effect
+        const typeText = document.getElementById("type-text");
+        if(typeText) {
+            const words = ["PLAYER ROBLOX", "WEB DEVELOPER", "CREATIVE CODER", "PEMAIN EPEP"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+              const currentWord = words[wordIndex];
+              let typeSpeed = 150;
+
+              if (isDeleting) {
+                typeText.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 75;
+              } else {
+                typeText.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150;
+              }
+
+              if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+              } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+              }
+              setTimeout(type, typeSpeed);
+            }
+            type();
+        }
     });
 
-    // Typing Effect
-    const typeText = document.getElementById("type-text");
-    const words = ["PLAYER ROBLOX", "WEB DEVELOPER", "CREATIVE CODER", "PEMAIN EPEP"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function type() {
-      const currentWord = words[wordIndex];
-      let typeSpeed = 150;
-
-      if (isDeleting) {
-        typeText.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
-        typeSpeed = 75;
-      } else {
-        typeText.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-        typeSpeed = 150;
-      }
-
-      if (!isDeleting && charIndex === currentWord.length) {
-        typeSpeed = 2000; // Pause at end of word
-        isDeleting = true;
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        typeSpeed = 500; // Pause before new word
-      }
-
-      setTimeout(type, typeSpeed);
-    }
-    document.addEventListener('DOMContentLoaded', type);
 
     // --- Firebase Logic ---
+    function initializeFirebaseComments() {
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfigString = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+        
+        let firebaseConfig = {};
+        let db;
 
-    // Configuration and Initialization
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-
-    let db;
-
-    try {
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        db = getFirestore(app);
-
-        // Authenticate the user
-        if (typeof __initial_auth_token !== 'undefined') {
-            await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-            await signInAnonymously(auth);
+        // Function to gracefully disable the comments section
+        const disableComments = (message) => {
+            const commentsSection = document.getElementById('comments');
+            if (commentsSection) {
+                 commentsSection.innerHTML = `
+                    <div class="container mx-auto px-6 max-w-3xl text-center">
+                        <h2 class="section-title">Komentar</h2>
+                        <p class="text-gray-500">${message}</p>
+                    </div>`;
+            }
+            console.warn(message);
+        };
+        
+        try {
+            firebaseConfig = JSON.parse(firebaseConfigString);
+        } catch (e) {
+            disableComments("Konfigurasi layanan komentar tidak valid.");
+            return;
         }
-    } catch (error) {
-        console.error("Firebase initialization failed:", error);
-        const commentsList = document.getElementById('comments-list');
-        commentsList.innerHTML = `<p class="text-center text-red-500">Gagal terhubung ke layanan komentar.</p>`;
+
+        if (!firebaseConfig.apiKey || !firebaseConfig.authDomain) {
+            disableComments("Layanan komentar tidak tersedia saat ini.");
+            return;
+        }
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            db = getFirestore(app);
+
+            const commentsCollectionPath = `/artifacts/${appId}/public/data/comments`;
+
+            // Authenticate the user and then load comments
+            (async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    loadComments(db, commentsCollectionPath);
+                    setupCommentForm(db, commentsCollectionPath);
+                } catch (authError) {
+                     console.error("Firebase authentication failed:", authError);
+                     disableComments("Gagal melakukan otentikasi ke layanan komentar.");
+                }
+            })();
+
+        } catch (initError) {
+            console.error("Firebase initialization failed:", initError);
+            disableComments("Gagal terhubung ke layanan komentar.");
+        }
     }
 
-    const commentForm = document.getElementById('comment-form');
-    const commentsList = document.getElementById('comments-list');
-    const commentsCollectionPath = `/artifacts/${appId}/public/data/comments`;
+    // Function to set up the comment form submission
+    function setupCommentForm(db, collectionPath) {
+        const commentForm = document.getElementById('comment-form');
+        if (commentForm) {
+            commentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const username = document.getElementById('username').value.trim();
+                const comment = document.getElementById('comment').value.trim();
 
-    // Function to add a comment
-    if (commentForm) {
-        commentForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value.trim();
-            const username = document.getElementById('username').value.trim();
-            const comment = document.getElementById('comment').value.trim();
+                if (!email || !username || !comment) return;
 
-            if (!email || !username || !comment || !db) return;
-
-            try {
-                await addDoc(collection(db, commentsCollectionPath), {
-                    email: email,
-                    username: username,
-                    comment: comment,
-                    createdAt: serverTimestamp()
-                });
-                commentForm.reset();
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("Gagal mengirim komentar. Silakan coba lagi.");
-            }
-        });
+                try {
+                    await addDoc(collection(db, collectionPath), {
+                        email, username, comment,
+                        createdAt: serverTimestamp()
+                    });
+                    commentForm.reset();
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert("Gagal mengirim komentar. Silakan coba lagi.");
+                }
+            });
+        }
     }
 
     // Function to load and display comments in real-time
-    function loadComments() {
-        if (!db) return;
-        const q = query(collection(db, commentsCollectionPath));
+    function loadComments(db, collectionPath) {
+        const commentsList = document.getElementById('comments-list');
+        if (!commentsList) return;
 
+        const q = query(collection(db, collectionPath));
         onSnapshot(q, (querySnapshot) => {
-            // Sort documents by createdAt timestamp in descending order client-side
             const comments = querySnapshot.docs
                 .map(doc => ({ id: doc.id, ...doc.data() }))
                 .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
@@ -349,25 +385,19 @@
                 return;
             }
 
-            commentsList.innerHTML = ''; // Clear existing comments
+            commentsList.innerHTML = '';
             comments.forEach(commentData => {
                 const div = document.createElement('div');
                 div.className = 'comment-box flex items-start space-x-4';
                 
                 const firstLetter = escapeHTML(commentData.username).charAt(0).toUpperCase();
-                
-                // --- THIS IS THE UPDATED PART ---
-                const timestamp = commentData.createdAt?.toDate(); // Convert Firestore Timestamp to JS Date
+                const timestamp = commentData.createdAt?.toDate();
                 let dateString = '';
                 if (timestamp) {
-                    // Format date to Indonesian locale
                     dateString = new Intl.DateTimeFormat('id-ID', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    }).format(timestamp).replace('.',':'); // replace dot with colon for time
+                        day: 'numeric', month: 'long', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                    }).format(timestamp).replace('.',':');
                 }
 
                 div.innerHTML = `
@@ -387,8 +417,6 @@
                         <p class="mt-1 text-gray-300">${escapeHTML(commentData.comment)}</p>
                     </div>
                 `;
-                // --- END OF UPDATE ---
-                
                 commentsList.appendChild(div);
             });
         }, (error) => {
@@ -397,7 +425,6 @@
         });
     }
 
-    // Simple HTML escaping function to prevent XSS
     function escapeHTML(str) {
         if (!str) return '';
         const p = document.createElement('p');
@@ -405,10 +432,10 @@
         return p.innerHTML;
     }
     
-    // Initial load of comments
-    loadComments();
+    // Start the Firebase logic
+    initializeFirebaseComments();
 
   </script>
 
 </body>
-              </html>
+</html>
