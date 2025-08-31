@@ -1,308 +1,414 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <title>Portofolio Marimo - Web Developer Fomo</title>
-  <meta name="description" content="Website portofolio Marimoo si Dev Fomo, Lihat karya dan proyek terbarunya di sini.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio Marimo - Web Developer</title>
+  <meta name="description" content="Website portofolio Marimo, seorang web developer muda dari Bekasi. Lihat karya dan proyek terbarunya di sini.">
   <link rel="icon" href="https://www.hyuraa.my.id/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Custom CSS for a clean, modern look */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #111827; /* Dark Slate Blue */
+      color: #E5E7EB; /* Light Gray */
+    }
+    .highlight {
+      color: #38BDF8; /* Sky Blue */
+    }
+    .cursor::after {
+      content: '|';
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .section-title {
+        @apply text-3xl md:text-4xl font-extrabold text-center mb-12 text-white;
+    }
+    .skill-fill {
+        @apply bg-sky-500 h-full rounded-full transition-all duration-1000 ease-out;
+    }
+    .social-icon {
+        @apply text-gray-400 hover:text-sky-400 transition-colors duration-300;
+    }
+    /* Style for comment section */
+    .comment-box {
+      @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4;
+    }
+  </style>
 </head>
-<body>
+<body class="antialiased">
 
   <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">Marimo</div>
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
+  <nav class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="text-2xl font-bold text-white tracking-wider">Marimo</div>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#home" class="text-gray-300 hover:text-sky-400 transition-colors">Home</a>
+        <a href="#about" class="text-gray-300 hover:text-sky-400 transition-colors">Tentang</a>
+        <a href="#skills" class="text-gray-300 hover:text-sky-400 transition-colors">Skill</a>
+        <a href="#projects" class="text-gray-300 hover:text-sky-400 transition-colors">Proyek</a>
+        <a href="#contact" class="text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a>
+      </div>
+      <button id="hamburger" class="md:hidden text-white focus:outline-none">
+        <i class="fas fa-bars fa-xl"></i>
+      </button>
     </div>
-    <ul class="nav-links" id="navMenu">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">Tentang</a></li>
-      <li><a href="#skills">Skill</a></li>
-      <li><a href="#projects">Proyek</a></li>
-      <li><a href="#contact">Media Sosial</a></li>
-    </ul>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+      <a href="#home" class="block text-gray-300 hover:text-sky-400 transition-colors">Home</a>
+      <a href="#about" class="block text-gray-300 hover:text-sky-400 transition-colors">Tentang</a>
+      <a href="#skills" class="block text-gray-300 hover:text-sky-400 transition-colors">Skill</a>
+      <a href="#projects" class="block text-gray-300 hover:text-sky-400 transition-colors">Proyek</a>
+      <a href="#contact" class="block text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a>
+    </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero-style" id="home">
-    <div class="hero-content">
-      <h1 class="main-title">HI, I'M MARIMO<br>
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center text-center bg-gray-900" id="home">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+        HI, I'M MARIMO<br>
         <span class="highlight cursor" id="type-text"></span>
       </h1>
-      <p class="hero-desc">Hi gue adalah marimo gua sekarang duduk di bangku SMP. gua tinggal di Indonesia, bekasi, gua udah berhasil ngebuat project.</p>
-      <a href="#projects" class="btn-primary">Lihat Proyek</a>
+      <p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg">
+        Saya seorang siswa SMP dari Bekasi, Indonesia dengan ketertarikan besar pada dunia Web Development.
+      </p>
+      <a href="#projects" class="mt-8 inline-block bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 transform hover:scale-105">
+        Lihat Proyek Saya
+      </a>
     </div>
   </section>
 
-  <!-- Tentang -->
-  <section class="section" id="about">
-    <h2>Tentang Saya</h2>
-    <p>I am a junior high school student from Serang Baru, Bekasi. I am interested in the world of web development, experiments. I love learning and exploring new things.</p>
-  </section>
-
-  <!-- Skill -->
-  <section class="section" id="skills">
-    <h2>Skill Saya</h2>
-    <div class="skill">
-      <span><i class="fab fa-html5" style="color:#e34c26;"></i> HTML</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 83%">83%</div>
-      </div>
-    </div>
-    <div class="skill">
-      <span><i class="fab fa-css3-alt" style="color:#264de4;"></i> CSS</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 80%">80%</div>
-      </div>
-    </div>
-    <div class="skill">
-      <span><i class="fab fa-js-square" style="color:#f0db4f;"></i> JavaScript</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 70%">70%</div>
-      </div>
-    </div>
-    <div class="skill">
-      <span><i class="fab fa-python" style="color:#306998;"></i> Python</span>
-      <div class="skill-bar">
-        <div class="skill-fill" style="width: 75%">75%</div>
-      </div>
+  <!-- About Section -->
+  <section class="py-20" id="about">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="section-title">Tentang Saya</h2>
+      <p class="max-w-3xl mx-auto text-gray-400 md:text-xl">
+        Saya adalah seorang pelajar SMP dari Serang Baru, Bekasi. Saya tertarik dengan dunia pengembangan web dan eksperimen teknologi. Saya suka belajar dan menjelajahi hal-hal baru untuk memperluas wawasan saya.
+      </p>
     </div>
   </section>
 
-  <!-- Proyek -->
-  <section class="section" id="projects">
-    <h2>Project marimoo</h2>
-    <div class="projects-container">
-      <div class="project-card">
-        <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" 
-             alt="Tampilan NGL Bot" 
-             class="ngl-image" />
-        <h3>NGL Bot</h3>
-        <p>Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p>
-        <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
-          <li>✅ Custom pesan teks dan bisa di atur jumlahnya</li>
-          <li>✅ Input username & jumlah pesan</li>
-          <li>✅ Backend fetch API langsung dari browser</li>
-          <li>✅ Tampilan clean dan responsif</li>
-        </ul>
-        <p style="margin-top: 10px;">Web: <a href="https://ngl-spam-inky.vercel.app" target="_blank">ngl-spam-inky.vercel.app</a></p>
-      </div>
-      <section class="section" id="projects">
-    <h2>Project marimoo</h2>
-    <div class="projects-container">
-      <div class="project-card">
-        <img src="https://i.postimg.cc/MprRqRC5/Screenshot-20250811-223133.jpg" 
-             alt="Tampilan Bart generator" 
-             class="Bart generator" />
-        <h3>Bart generator</h3>
-        <p>Bart generator yang di buat tanpa api, 100% murni codingann😱😱.</p>
-        <ul style="padding-left: 20px; text-align: left; font-size: 0.9rem;">
-          <li>✅ Custom pesan teks </li>
-          <li>✅ Berkualitas tinggi🔥🔥</li>
-          <li>✅ Bisa di atur sendiri </li>
-          <li>✅ 100% no iklan dan Free </li>
-        </ul>
-        <p style="margin-top: 10px;">Web: <a href="https://hyuraa.my.id/bart" target="_blank">Klik di sini</a></p>
+  <!-- Skills Section -->
+  <section class="py-20 bg-gray-900" id="skills">
+    <div class="container mx-auto px-6">
+      <h2 class="section-title">Skill Saya</h2>
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- HTML -->
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-lg font-semibold flex items-center"><i class="fab fa-html5 mr-3" style="color:#e34c26;"></i> HTML</span>
+            <span class="text-gray-400">83%</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2.5">
+            <div class="skill-fill" style="width: 83%"></div>
+          </div>
+        </div>
+        <!-- CSS -->
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-lg font-semibold flex items-center"><i class="fab fa-css3-alt mr-3" style="color:#264de4;"></i> CSS</span>
+            <span class="text-gray-400">80%</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2.5">
+            <div class="skill-fill" style="width: 80%"></div>
+          </div>
+        </div>
+        <!-- JavaScript -->
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-lg font-semibold flex items-center"><i class="fab fa-js-square mr-3" style="color:#f0db4f;"></i> JavaScript</span>
+            <span class="text-gray-400">70%</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2.5">
+            <div class="skill-fill" style="width: 70%"></div>
+          </div>
+        </div>
+        <!-- Python -->
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-lg font-semibold flex items-center"><i class="fab fa-python mr-3" style="color:#306998;"></i> Python</span>
+            <span class="text-gray-400">75%</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2.5">
+            <div class="skill-fill" style="width: 75%"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Media Sosial -->
-  <section class="section" id="contact">
-    <h2>Media Sosial</h2>
-    <div class="social-container">
-      <div class="social-icon" onclick="toggleSocial('ig')">
-        <i class="fab fa-instagram"></i>
-        <a href="https://instagram.com/marimo_2553" target="_blank" id="ig-username" class="username hidden"> @marimo_2553 </a>
-      </div>
-      <div class="social-icon" onclick="toggleSocial('tiktok')">
-        <i class="fab fa-tiktok"></i>
-        <a href="https://tiktok.com/@galngpremium0" target="_blank" id="tiktok-username" class="username hidden"> @galngpremium0 </a>
-      </div>
-      <div class="social-icon" onclick="toggleSocial('telegram')">
-        <i class="fab fa-telegram"></i>
-        <a href="https://t.me/maoo_2553" target="_blank" id="telegram-username" class="username hidden"> @maoo_2553 </a>
+  <!-- Projects Section -->
+  <section class="py-20" id="projects">
+    <div class="container mx-auto px-6">
+      <h2 class="section-title">Proyek Unggulan</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- Project Card 1: NGL Bot -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105">
+          <img src="https://i.postimg.cc/8F7t34X2/Screenshot-20250623-145753.jpg" alt="Tampilan NGL Bot" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2 text-white">NGL Bot</h3>
+            <p class="text-gray-400 mb-4">Tool spam pesan anonim untuk NGL. Dibuat dengan frontend interaktif dan backend API milik sendiri.</p>
+            <ul class="space-y-2 text-gray-300">
+              <li>✅ Atur custom pesan dan jumlah</li>
+              <li>✅ Tampilan clean dan responsif</li>
+              <li>✅ Backend fetch API langsung dari browser</li>
+            </ul>
+            <a href="https://ngl-spam-inky.vercel.app" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Kunjungi Situs &rarr;</a>
+          </div>
+        </div>
+        <!-- Project Card 2: Bart Generator -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105">
+          <img src="https://i.postimg.cc/MprRqRC5/Screenshot-20250811-223133.jpg" alt="Tampilan Bart generator" class="w-full h-56 object-cover">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-2 text-white">Bart Generator</h3>
+            <p class="text-gray-400 mb-4">Generator meme Bart Simpson yang dibuat murni dengan frontend, tanpa API eksternal.</p>
+            <ul class="space-y-2 text-gray-300">
+                <li>✅ Custom pesan teks pada papan tulis</li>
+                <li>✅ Kualitas gambar tinggi</li>
+                <li>✅ 100% gratis dan tanpa iklan</li>
+            </ul>
+            <a href="https://hyuraa.my.id/bart" target="_blank" class="mt-6 inline-block text-sky-400 hover:text-sky-300">Coba Generator &rarr;</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Komentar -->
-<section class="section" id="komentar">
-  <h2>Komentar</h2>
-
-  <form id="comment-form">
-    <input type="email" id="email" placeholder="Gmail kamu" required />
-    <input type="text" id="username" placeholder="Username" required />
-    <textarea id="comment" placeholder="Tulis komentar..." required></textarea>
-    <button type="submit">Kirim Komentar</button>
-  </form>
-
-  <div id="comments-list">
-    <!-- Komentar dari supabase akan tampil di sini -->
-  </div>
-</section>
   
-  <!-- Tambahkan ini setelah section media sosial --><section class="section" id="comments">
-  <h2>Tinggalkan Komentar</h2>
-  <form id="commentForm">
-    <input type="email" id="email" placeholder="Gmail kamu" required><br>
-    <input type="text" id="username" placeholder="Username" required><br>
-    <textarea id="comment" placeholder="Komentar kamu..." required></textarea><br>
-    <button type="submit">Kirim</button>
-  </form>
-  <div id="commentsList"></div>
-</section>
-  <script>
-  // Submit komentar
-  document.getElementById('commentForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const username = document.getElementById('username').value;
-    const comment = document.getElementById('comment').value;
+  <!-- Social Media Section -->
+  <section class="py-20 bg-gray-900" id="contact">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="section-title">Media Sosial</h2>
+      <p class="max-w-2xl mx-auto text-gray-400 mb-10">Terhubung dengan saya melalui platform berikut.</p>
+      <div class="flex justify-center items-center space-x-8 md:space-x-12">
+        <a href="https://instagram.com/marimo_2553" target="_blank" class="social-icon">
+          <i class="fab fa-instagram fa-3x"></i>
+        </a>
+        <a href="https://tiktok.com/@galngpremium0" target="_blank" class="social-icon">
+          <i class="fab fa-tiktok fa-3x"></i>
+        </a>
+        <a href="https://t.me/maoo_2553" target="_blank" class="social-icon">
+          <i class="fab fa-telegram fa-3x"></i>
+        </a>
+      </div>
+    </div>
+  </section>
 
-    const res = await fetch('/api/comments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, username, comment })
-    });
+  <!-- Comments Section -->
+  <section class="py-20" id="comments">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <h2 class="section-title">Tinggalkan Komentar</h2>
+      <form id="comment-form" class="space-y-4">
+        <input type="email" id="email" placeholder="Alamat email kamu" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
+        <input type="text" id="username" placeholder="Nama atau username" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
+        <textarea id="comment" placeholder="Tulis komentar kamu di sini..." required rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"></textarea>
+        <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300">Kirim Komentar</button>
+      </form>
+      <div id="comments-list" class="mt-12">
+        <p class="text-center text-gray-500">Memuat komentar...</p>
+        <!-- Comments will be rendered here by JavaScript -->
+      </div>
+    </div>
+  </section>
 
-    if (res.ok) {
-      alert('Komentar berhasil dikirim!');
-      this.reset();
-      loadComments();
-    } else {
-      alert('Gagal mengirim komentar.');
-    }
-  });
-
-  // Ambil komentar
-  async function loadComments() {
-    const res = await fetch('/api/comments');
-    const data = await res.json();
-    if (data.success) {
-      const container = document.getElementById('commentsList');
-      container.innerHTML = data.comments.map(c =>
-        `<div style="margin-bottom: 10px;"><strong>${c.username}</strong> (${c.email}):<br>${c.comment}</div>`
-      ).join('');
-    }
-  }
-
-  // Load awal
-  window.addEventListener('load', loadComments);
-      </script>
-
-  <footer>
-    &copy; 2025 Marimo. Dibuat dengan hati ❤️
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-8 text-center text-gray-500">
+    <p>&copy; 2025 Marimo. Dibuat dengan <i class="fas fa-heart text-red-500"></i> di Bekasi.</p>
   </footer>
 
-  <script>
+  <script type="module">
+    // Firebase SDK Imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // --- UI Logic ---
+
     // Navbar toggle
-    function toggleMenu() {
-      document.getElementById('navMenu').classList.toggle('show');
-    }
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
 
     // Typing Effect
     const typeText = document.getElementById("type-text");
-    const words = ["PLAYER ROBLOX", "WEB CODE", "CREATIVE CODER", "PLAYER EPEP"];
+    const words = ["PLAYER ROBLOX", "WEB DEVELOPER", "CREATIVE CODER", "PEMAIN EPEP"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typingDelay = 100;
-    let delayStart = true;
 
     function type() {
       const currentWord = words[wordIndex];
+      let typeSpeed = 150;
 
-      if (delayStart) {
-        delayStart = false;
-        return setTimeout(type, 1000); // 1 detik delay di awal
-      }
-
-      if (!isDeleting && charIndex < currentWord.length) {
-        typeText.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-        typingDelay = 100;
-      } else if (isDeleting && charIndex > 0) {
+      if (isDeleting) {
         typeText.textContent = currentWord.substring(0, charIndex - 1);
         charIndex--;
-        typingDelay = 50;
+        typeSpeed = 75;
       } else {
-        isDeleting = !isDeleting;
-        if (!isDeleting) wordIndex = (wordIndex + 1) % words.length;
-        typingDelay = 700;
+        typeText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        typeSpeed = 150;
       }
 
-      setTimeout(type, typingDelay);
+      if (!isDeleting && charIndex === currentWord.length) {
+        typeSpeed = 2000; // Pause at end of word
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500; // Pause before new word
+      }
+
+      setTimeout(type, typeSpeed);
     }
+    document.addEventListener('DOMContentLoaded', type);
 
-    type();
+    // --- Firebase Logic ---
 
-    // Toggle social usernames
-    function toggleSocial(platform) {
-      const platforms = ["ig", "tiktok", "telegram"];
-      platforms.forEach(p => {
-        const el = document.getElementById(`${p}-username`);
-        if (p === platform) {
-          el.classList.toggle("hidden");
+    // Configuration and Initialization
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+
+    let db;
+
+    try {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        db = getFirestore(app);
+
+        // Authenticate the user
+        if (typeof __initial_auth_token !== 'undefined') {
+            await signInWithCustomToken(auth, __initial_auth_token);
         } else {
-          el.classList.add("hidden");
+            await signInAnonymously(auth);
         }
-      });
+    } catch (error) {
+        console.error("Firebase initialization failed:", error);
+        const commentsList = document.getElementById('comments-list');
+        commentsList.innerHTML = `<p class="text-center text-red-500">Gagal terhubung ke layanan komentar.</p>`;
     }
-  </script><script type="module">
-  const SUPABASE_URL = 'https://hyspyxgkxsvtuxkusuad.supabase.co';
-  const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
-  const table = 'comments';
 
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const commentForm = document.getElementById('comment-form');
+    const commentsList = document.getElementById('comments-list');
+    const commentsCollectionPath = `/artifacts/${appId}/public/data/comments`;
 
-  const form = document.getElementById('comment-form');
-  const list = document.getElementById('comments-list');
+    // Function to add a comment
+    if (commentForm) {
+        commentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const comment = document.getElementById('comment').value.trim();
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const username = document.getElementById('username').value.trim();
-    const comment = document.getElementById('comment').value.trim();
+            if (!email || !username || !comment || !db) return;
 
-    if (!email || !username || !comment) return;
-
-    const { error } = await supabase.from(table).insert([{ email, username, comment }]);
-    if (error) {
-      alert('Gagal mengirim komentar');
-    } else {
-      form.reset();
-      loadComments();
+            try {
+                await addDoc(collection(db, commentsCollectionPath), {
+                    email: email,
+                    username: username,
+                    comment: comment,
+                    createdAt: serverTimestamp()
+                });
+                commentForm.reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Gagal mengirim komentar. Silakan coba lagi.");
+            }
+        });
     }
-  });
 
-  async function loadComments() {
-    const { data, error } = await supabase
-      .from(table)
-      .select('*')
-      .order('created_at', { ascending: false });
+    // Function to load and display comments in real-time
+    function loadComments() {
+        if (!db) return;
+        const q = query(collection(db, commentsCollectionPath));
 
-    if (!error && data.length) {
-      list.innerHTML = '';
-      data.forEach(({ email, username, comment }) => {
-        const div = document.createElement('div');
-        div.className = 'comment-box';
-        div.innerHTML = `
-          <div class="email">${email}</div>
-          <div class="username">${username}</div>
-          <div class="text">${comment}</div>
-        `;
-        list.appendChild(div);
-      });
+        onSnapshot(q, (querySnapshot) => {
+            // Sort documents by createdAt timestamp in descending order client-side
+            const comments = querySnapshot.docs
+                .map(doc => ({ id: doc.id, ...doc.data() }))
+                .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p class="text-center text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>';
+                return;
+            }
+
+            commentsList.innerHTML = ''; // Clear existing comments
+            comments.forEach(commentData => {
+                const div = document.createElement('div');
+                div.className = 'comment-box flex items-start space-x-4';
+                
+                const firstLetter = escapeHTML(commentData.username).charAt(0).toUpperCase();
+                
+                // --- THIS IS THE UPDATED PART ---
+                const timestamp = commentData.createdAt?.toDate(); // Convert Firestore Timestamp to JS Date
+                let dateString = '';
+                if (timestamp) {
+                    // Format date to Indonesian locale
+                    dateString = new Intl.DateTimeFormat('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }).format(timestamp).replace('.',':'); // replace dot with colon for time
+                }
+
+                div.innerHTML = `
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                            <span class="text-sky-400 font-bold">${firstLetter}</span>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-baseline space-x-2">
+                                <p class="font-bold text-white">${escapeHTML(commentData.username)}</p>
+                                <p class="text-xs text-gray-500 hidden sm:block">${escapeHTML(commentData.email)}</p>
+                            </div>
+                            <p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p> 
+                        </div>
+                        <p class="mt-1 text-gray-300">${escapeHTML(commentData.comment)}</p>
+                    </div>
+                `;
+                // --- END OF UPDATE ---
+                
+                commentsList.appendChild(div);
+            });
+        }, (error) => {
+            console.error("Error loading comments:", error);
+            commentsList.innerHTML = '<p class="text-center text-red-500">Tidak dapat memuat komentar.</p>';
+        });
     }
-  }
 
-  loadComments();
-      </script>
+    // Simple HTML escaping function to prevent XSS
+    function escapeHTML(str) {
+        if (!str) return '';
+        const p = document.createElement('p');
+        p.appendChild(document.createTextNode(str));
+        return p.innerHTML;
+    }
+    
+    // Initial load of comments
+    loadComments();
+
+  </script>
 
 </body>
-</html>
+              </html>
