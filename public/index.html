@@ -30,7 +30,8 @@
     .section-title { @apply text-3xl md:text-4xl font-extrabold text-center mb-12 text-white; }
     .skill-fill { @apply bg-sky-500 h-full rounded-full transition-all duration-1000 ease-out; }
     .social-icon { @apply text-gray-400 hover:text-sky-400 transition-colors duration-300; }
-    .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4; }
+    .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4 opacity-0 transition-opacity duration-500; }
+    .comment-box.visible { @apply opacity-100; }
   </style>
 </head>
 <body class="antialiased">
@@ -121,7 +122,7 @@
         <input type="email" id="email" placeholder="Alamat email kamu" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
         <input type="text" id="username" placeholder="Nama atau username" required class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white">
         <textarea id="comment" placeholder="Tulis komentar kamu di sini..." required rows="4" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 text-white"></textarea>
-        <button type="submit" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300">Kirim Komentar</button>
+        <button type="submit" id="submit-button" class="w-full bg-sky-500 text-white font-bold py-3 px-8 rounded-full hover:bg-sky-600 transition-all duration-300 disabled:bg-gray-500">Kirim Komentar</button>
       </form>
       <div id="comments-list" class="mt-12">
         <p class="text-center text-gray-500">Memuat komentar...</p>
@@ -138,7 +139,7 @@
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-    // --- UI Logic ---
+    // UI Logic
     document.addEventListener('DOMContentLoaded', () => {
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -160,12 +161,9 @@
                     charIndex++;
                 }
                 if (!isDeleting && charIndex === currentWord.length) {
-                    typeSpeed = 2000;
-                    isDeleting = true;
+                    typeSpeed = 2000; isDeleting = true;
                 } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                    typeSpeed = 500;
+                    isDeleting = false; wordIndex = (wordIndex + 1) % words.length; typeSpeed = 500;
                 }
                 setTimeout(type, typeSpeed);
             }
@@ -173,93 +171,91 @@
         }
     });
 
-    // --- Supabase Logic ---
-
-    // Kunci API kamu sudah dimasukkan di sini
+    // Supabase Logic
     const SUPABASE_URL = 'https://zvxkltvmrfxgrlrrekob.supabase.co'; 
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGhTKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
     const commentForm = document.getElementById('comment-form');
     const commentsList = document.getElementById('comments-list');
+    const submitButton = document.getElementById('submit-button');
+    const placeholder = document.querySelector('#comments-list p');
 
+    // Function to create a comment element
+    function createCommentElement(commentData) {
+        const div = document.createElement('div');
+        div.className = 'comment-box flex items-start space-x-4';
+        
+        const firstLetter = escapeHTML(commentData.username).charAt(0).toUpperCase();
+        const timestamp = new Date(commentData.created_at);
+        const dateString = new Intl.DateTimeFormat('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        }).format(timestamp).replace('.',':');
+
+        div.innerHTML = `
+            <div class="flex-shrink-0">
+                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                    <span class="text-sky-400 font-bold">${firstLetter}</span>
+                </div>
+            </div>
+            <div class="flex-grow">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-baseline space-x-2">
+                        <p class="font-bold text-white">${escapeHTML(commentData.username)}</p>
+                        <p class="text-xs text-gray-500 hidden sm:block">${escapeHTML(commentData.email)}</p>
+                    </div>
+                    <p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p> 
+                </div>
+                <p class="mt-1 text-gray-300">${escapeHTML(commentData.comment)}</p>
+            </div>
+        `;
+        // Use a short timeout to trigger the CSS transition
+        setTimeout(() => {
+            div.classList.add('visible');
+        }, 10);
+        return div;
+    }
+    
     // Function to submit a new comment
     commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = document.getElementById('email').value.trim();
-        const username = document.getElementById('username').value.trim();
-        const comment = document.getElementById('comment').value.trim();
+        submitButton.disabled = true;
+        submitButton.textContent = 'Mengirim...';
 
-        if (!email || !username || !comment) return;
-
-        const { error } = await supabase
-            .from('comments')
-            .insert([{ email, username, comment }]);
+        const { error } = await supabase.from('comments').insert([{ 
+            email: document.getElementById('email').value.trim(), 
+            username: document.getElementById('username').value.trim(), 
+            comment: document.getElementById('comment').value.trim() 
+        }]);
 
         if (error) {
             console.error('Error submitting comment:', error);
-            alert('Gagal mengirim komentar. Silakan coba lagi.');
+            alert('Gagal mengirim komentar.');
         } else {
             commentForm.reset();
-            // We don't need to call loadComments() here because the realtime listener will handle it.
         }
+        submitButton.disabled = false;
+        submitButton.textContent = 'Kirim Komentar';
     });
 
-    // Function to load and display comments
-    async function loadComments() {
-        const { data, error } = await supabase
-            .from('comments')
-            .select('*')
-            .order('created_at', { ascending: false });
+    // Function to load initial comments
+    async function loadInitialComments() {
+        const { data, error } = await supabase.from('comments').select('*').order('created_at', { ascending: false });
 
         if (error) {
             console.error('Error loading comments:', error);
-            commentsList.innerHTML = '<p class="text-center text-red-500">Tidak dapat memuat komentar.</p>';
+            placeholder.textContent = 'Tidak dapat memuat komentar.';
+            placeholder.classList.add('text-red-500');
             return;
         }
         
-        displayComments(data);
-    }
-
-    // Function to render comments to the page
-    function displayComments(data) {
-        if (!data || data.length === 0) {
-            commentsList.innerHTML = '<p class="text-center text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>';
-            return;
+        if (data.length > 0) {
+            placeholder.remove();
+            data.forEach(comment => commentsList.appendChild(createCommentElement(comment)));
+        } else {
+            placeholder.textContent = 'Belum ada komentar. Jadilah yang pertama!';
         }
-        
-        commentsList.innerHTML = ''; // Clear list
-        data.forEach(commentData => {
-            const div = document.createElement('div');
-            div.className = 'comment-box flex items-start space-x-4';
-            
-            const firstLetter = escapeHTML(commentData.username).charAt(0).toUpperCase();
-            const timestamp = new Date(commentData.created_at);
-            const dateString = new Intl.DateTimeFormat('id-ID', {
-                day: 'numeric', month: 'long', year: 'numeric',
-                hour: '2-digit', minute: '2-digit'
-            }).format(timestamp).replace('.',':');
-
-            div.innerHTML = `
-                <div class="flex-shrink-0">
-                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
-                        <span class="text-sky-400 font-bold">${firstLetter}</span>
-                    </div>
-                </div>
-                <div class="flex-grow">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-baseline space-x-2">
-                            <p class="font-bold text-white">${escapeHTML(commentData.username)}</p>
-                            <p class="text-xs text-gray-500 hidden sm:block">${escapeHTML(commentData.email)}</p>
-                        </div>
-                        <p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p> 
-                    </div>
-                    <p class="mt-1 text-gray-300">${escapeHTML(commentData.comment)}</p>
-                </div>
-            `;
-            commentsList.appendChild(div);
-        });
     }
 
     function escapeHTML(str) {
@@ -269,19 +265,21 @@
         return p.innerHTML;
     }
 
-    // Initial load
-    loadComments();
+    // Load initial data
+    loadInitialComments();
 
-    // Realtime listener for new comments
+    // Listen for new comments in real-time
     supabase
       .channel('public:comments')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'comments' }, payload => {
-        console.log('New comment received!', payload);
-        loadComments(); // Reload all comments to keep the order correct
+        console.log('New comment received!', payload.new);
+        if (placeholder) placeholder.remove();
+        const newCommentElement = createCommentElement(payload.new);
+        commentsList.prepend(newCommentElement); // Prepend adds the new comment to the top
       })
       .subscribe();
 
   </script>
 
 </body>
-                                                                                                                                                                                                                                                                      </html>
+  </html>
