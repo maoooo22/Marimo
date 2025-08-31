@@ -21,11 +21,10 @@
     .section-title { @apply text-3xl md:text-4xl font-extrabold text-center mb-12 text-white; }
     .skill-fill { @apply bg-sky-500 h-full rounded-full transition-all duration-1000 ease-out; }
     .social-icon { @apply text-gray-400 hover:text-sky-400 transition-colors duration-300; }
-    .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4 opacity-0 transition-opacity duration-500; }
-    .comment-box.visible { @apply opacity-100; }
+    .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4; }
   </style>
 </head>
-<body class="antialiased">
+<body class="antaliasesd">
 
   <!-- Bagian HTML (Navbar, Hero, dll.) tidak berubah -->
   <nav class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20"><div class="container mx-auto px-6 py-4 flex justify-between items-center"><div class="text-2xl font-bold text-white tracking-wider">Marimo</div><div class="hidden md:flex space-x-8 items-center"><a href="#home" class="text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div><button id="hamburger" class="md:hidden text-white focus:outline-none"><i class="fas fa-bars fa-xl"></i></button></div><div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2"><a href="#home" class="block text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="block text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="block text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="block text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="block text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div></nav>
@@ -40,12 +39,11 @@
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-    // UI Logic (Tidak berubah)
+    // UI Logic
     document.addEventListener('DOMContentLoaded', () => {
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
         const typeText = document.getElementById("type-text");
         if (typeText) {
             const words = ["PLAYER ROBLOX", "WEB DEVELOPER", "CREATIVE CODER", "PEMAIN EPEP"];
@@ -71,77 +69,72 @@
 
     // Supabase Logic
     const SUPABASE_URL = 'https://zvxkltvmrfxgrlrrekob.supabase.co'; 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGhTKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const commentForm = document.getElementById('comment-form');
     const commentsList = document.getElementById('comments-list');
     const submitButton = document.getElementById('submit-button');
-    const placeholder = document.querySelector('#comments-list p');
 
-    // Helper untuk membuat elemen komentar
-    function createCommentElement(commentData) {
-        const div = document.createElement('div');
-        div.className = 'comment-box flex items-start space-x-4';
-        const firstLetter = (commentData.username || '').charAt(0).toUpperCase();
-        const timestamp = new Date(commentData.created_at);
-        const dateString = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(timestamp).replace('.',':');
-        div.innerHTML = `<div class="flex-shrink-0"><div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center"><span class="text-sky-400 font-bold">${firstLetter}</span></div></div><div class="flex-grow"><div class="flex justify-between items-center"><div class="flex items-baseline space-x-2"><p class="font-bold text-white">${commentData.username}</p><p class="text-xs text-gray-500 hidden sm:block">${commentData.email}</p></div><p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p></div><p class="mt-1 text-gray-300">${commentData.comment}</p></div>`;
-        setTimeout(() => { div.classList.add('visible'); }, 10);
-        return div;
+    // Fungsi untuk memuat dan menampilkan komentar
+    async function loadComments() {
+        const { data, error } = await supabase
+            .from('comments')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            commentsList.innerHTML = '<p class="text-center text-red-500">Tidak dapat memuat komentar.</p>';
+            return;
+        }
+
+        if (data.length === 0) {
+            commentsList.innerHTML = '<p class="text-center text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>';
+            return;
+        }
+        
+        commentsList.innerHTML = ''; // Kosongkan daftar sebelum diisi ulang
+        data.forEach(commentData => {
+            const div = document.createElement('div');
+            div.className = 'comment-box flex items-start space-x-4';
+            const firstLetter = (commentData.username || '').charAt(0).toUpperCase();
+            const timestamp = new Date(commentData.created_at);
+            const dateString = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(timestamp).replace('.',':');
+            const escapedUsername = (commentData.username || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const escapedEmail = (commentData.email || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            const escapedComment = (commentData.comment || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            div.innerHTML = `<div class="flex-shrink-0"><div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center"><span class="text-sky-400 font-bold">${firstLetter}</span></div></div><div class="flex-grow"><div class="flex justify-between items-center"><div class="flex items-baseline space-x-2"><p class="font-bold text-white">${escapedUsername}</p><p class="text-xs text-gray-500 hidden sm:block">${escapedEmail}</p></div><p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p></div><p class="mt-1 text-gray-300">${escapedComment}</p></div>`;
+            commentsList.appendChild(div);
+        });
     }
-    
+
     // Handler untuk form submit
     commentForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitButton.disabled = true;
         submitButton.textContent = 'Mengirim...';
+
         const { error } = await supabase.from('comments').insert([{ 
             email: document.getElementById('email').value.trim(), 
             username: document.getElementById('username').value.trim(), 
             comment: document.getElementById('comment').value.trim() 
         }]);
-        if (error) { alert('Gagal mengirim komentar: ' + error.message); } 
-        else { commentForm.reset(); }
+        
+        if (error) {
+            alert('Gagal mengirim komentar: ' + error.message);
+        } else {
+            commentForm.reset();
+            loadComments(); // Panggil lagi fungsi loadComments setelah berhasil
+        }
+
         submitButton.disabled = false;
         submitButton.textContent = 'Kirim Komentar';
     });
 
-    // Handler untuk menampilkan komentar baru yang masuk secara real-time
-    const handleNewComment = (payload) => {
-        if (placeholder) {
-            placeholder.remove();
-        }
-        const newCommentElement = createCommentElement(payload.new);
-        commentsList.prepend(newCommentElement); // Taruh di paling atas
-    };
-    
-    // Fungsi utama untuk memuat dan mendengarkan komentar
-    async function initializeComments() {
-        // 1. Muat komentar yang sudah ada
-        const { data, error } = await supabase.from('comments').select('*').order('created_at', { ascending: false });
-        if (error) {
-            placeholder.textContent = 'Gagal memuat komentar.';
-            return;
-        }
-        if (data.length > 0) {
-            if (placeholder) placeholder.remove();
-            data.forEach(comment => commentsList.appendChild(createCommentElement(comment)));
-        } else {
-            placeholder.textContent = 'Belum ada komentar. Jadilah yang pertama!';
-        }
-
-        // 2. Dengarkan komentar baru
-        supabase
-          .channel('public:comments')
-          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'comments' }, handleNewComment)
-          .subscribe();
-    }
-
-    // Jalankan fungsi utama
-    initializeComments();
+    // Muat komentar saat halaman pertama kali dibuka
+    loadComments();
 
   </script>
 
 </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </html>
+  </html>
