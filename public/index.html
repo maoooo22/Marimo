@@ -13,6 +13,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <!-- MEMUAT FILE KONFIGURASI DARI FOLDER /api/ -->
+  <script src="api/config.js"></script>
+
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #111827; color: #E5E7EB; }
     .highlight { color: #38BDF8; }
@@ -24,7 +27,7 @@
     .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4; }
   </style>
 </head>
-<body class="antaliasesd">
+<body class="antialiased">
 
   <!-- Bagian HTML (Navbar, Hero, dll.) tidak berubah -->
   <nav class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20"><div class="container mx-auto px-6 py-4 flex justify-between items-center"><div class="text-2xl font-bold text-white tracking-wider">Marimo</div><div class="hidden md:flex space-x-8 items-center"><a href="#home" class="text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div><button id="hamburger" class="md:hidden text-white focus:outline-none"><i class="fas fa-bars fa-xl"></i></button></div><div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2"><a href="#home" class="block text-gray-300 hover:text-sky-400 transition-colors">Home</a><a href="#about" class="block text-gray-300 hover:text-sky-400 transition-colors">Tentang</a><a href="#skills" class="block text-gray-300 hover:text-sky-400 transition-colors">Skill</a><a href="#projects" class="block text-gray-300 hover:text-sky-400 transition-colors">Proyek</a><a href="#contact" class="block text-gray-300 hover:text-sky-400 transition-colors">Media Sosial</a></div></nav>
@@ -68,9 +71,7 @@
     });
 
     // Supabase Logic
-    const SUPABASE_URL = 'https://zvxkltvmrfxgrlrrekob.supabase.co'; 
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGhTKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
-
+    // Variabel SUPABASE_URL dan SUPABASE_ANON_KEY sekarang diambil dari file config.js
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const commentForm = document.getElementById('comment-form');
     const commentsList = document.getElementById('comments-list');
@@ -84,7 +85,7 @@
             .order('created_at', { ascending: false });
 
         if (error) {
-            commentsList.innerHTML = '<p class="text-center text-red-500">Tidak dapat memuat komentar.</p>';
+            commentsList.innerHTML = `<p class="text-center text-red-500">Tidak dapat memuat komentar. Cek kembali aturan (policy) di Supabase.</p>`;
             return;
         }
 
@@ -93,7 +94,7 @@
             return;
         }
         
-        commentsList.innerHTML = ''; // Kosongkan daftar sebelum diisi ulang
+        commentsList.innerHTML = '';
         data.forEach(commentData => {
             const div = document.createElement('div');
             div.className = 'comment-box flex items-start space-x-4';
@@ -124,7 +125,7 @@
             alert('Gagal mengirim komentar: ' + error.message);
         } else {
             commentForm.reset();
-            loadComments(); // Panggil lagi fungsi loadComments setelah berhasil
+            loadComments();
         }
 
         submitButton.disabled = false;
@@ -137,4 +138,4 @@
   </script>
 
 </body>
-  </html>
+</html>
