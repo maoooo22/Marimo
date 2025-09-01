@@ -42,11 +42,30 @@
     .skill-fill { @apply bg-sky-500 h-full rounded-full transition-all duration-1000 ease-out; }
     .social-icon { @apply text-gray-400 hover:text-sky-400 transition-colors duration-300; }
     .comment-box { @apply bg-gray-800 border border-gray-700 p-4 rounded-lg mb-4; }
-
-    /* Mencegah animasi AOS berjalan sebelum halaman siap (opsional, tapi bagus) */
+    
+    /* Mencegah animasi AOS berjalan sebelum halaman siap */
     html:not(.no-js) [data-aos] {
       opacity: 0;
       transition-property: opacity, transform;
+    }
+    
+    /* --- INI DIA PERBAIKAN UNTUK SCROLL KOMENTAR --- */
+    #comments-list {
+        max-height: 600px; /* Batas tinggi maksimal */
+        overflow-y: auto; /* Munculkan scrollbar jika konten lebih tinggi */
+        padding-right: 12px; /* Beri sedikit ruang untuk scrollbar */
+    }
+    /* Kustomisasi tampilan scrollbar biar keren */
+    #comments-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    #comments-list::-webkit-scrollbar-track {
+      background: #1f2937; /* bg-gray-800 */
+    }
+    #comments-list::-webkit-scrollbar-thumb {
+      background-color: #4b5563; /* bg-gray-600 */
+      border-radius: 4px;
+      border: 2px solid #1f2937;
     }
   </style>
 </head>
@@ -85,14 +104,12 @@
 
     // UI Logic & Initialization
     document.addEventListener('DOMContentLoaded', () => {
-        // Inisialisasi AOS
         AOS.init({
-          duration: 800, // Durasi animasi dalam milidetik
-          once: false, // Animasi berjalan setiap kali di-scroll
-          offset: 100, // Jarak trigger animasi (dalam pixel)
+          duration: 800, 
+          once: false,   
+          offset: 100,   
         });
         
-        // Kode UI lainnya (hamburger, typing effect)
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobile-menu');
         hamburger.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
@@ -119,17 +136,77 @@
         }
     });
 
-    // Supabase Logic (tidak berubah)
+    // Supabase Logic
     const SUPABASE_URL = 'https://zvxkltvmrfxgrlrrekob.supabase.co'; 
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2eGtsdHZtcmZ4Z3JscnJla29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2NjAyMTQsImV4cCI6MjA3MjIzNjIxNH0.dR_TGhTKJYOMtNek_N7BXc2fXhLY9EH9e1krrflSG3Q';
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const commentForm = document.getElementById('comment-form');
     const commentsList = document.getElementById('comments-list');
     const submitButton = document.getElementById('submit-button');
-    async function loadComments() { const { data, error } = await supabase.from('comments').select('*').order('created_at', { ascending: false }); if (error) { commentsList.innerHTML = `<p class="text-center text-red-500">Tidak dapat memuat komentar. Cek kembali aturan (policy) di Supabase.</p>`; return; } if (data.length === 0) { commentsList.innerHTML = '<p class="text-center text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>'; return; } commentsList.innerHTML = ''; data.forEach(commentData => { const div = document.createElement('div'); div.className = 'comment-box flex items-start space-x-4'; const firstLetter = (commentData.username || '').charAt(0).toUpperCase(); const timestamp = new Date(commentData.created_at); const dateString = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(timestamp).replace('.',':'); const escapedUsername = (commentData.username || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); const escapedEmail = (commentData.email || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); const escapedComment = (commentData.comment || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); div.innerHTML = `<div class="flex-shrink-0"><div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center"><span class="text-sky-400 font-bold">${firstLetter}</span></div></div><div class="flex-grow"><div class="flex justify-between items-center"><div class="flex items-baseline space-x-2"><p class="font-bold text-white">${escapedUsername}</p><p class="text-xs text-gray-500 hidden sm:block">${escapedEmail}</p></div><p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p></div><p class="mt-1 text-gray-300">${escapedComment}</p></div>`; commentsList.appendChild(div); }); }
-    commentForm.addEventListener('submit', async (e) => { e.preventDefault(); submitButton.disabled = true; submitButton.textContent = 'Mengirim...'; const { error } = await supabase.from('comments').insert([{ email: document.getElementById('email').value.trim(), username: document.getElementById('username').value.trim(), comment: document.getElementById('comment').value.trim() }]); if (error) { alert('Gagal mengirim komentar: ' + error.message); } else { commentForm.reset(); loadComments(); } submitButton.disabled = false; submitButton.textContent = 'Kirim Komentar'; });
+    
+    async function loadComments() { 
+        const { data, error } = await supabase.from('comments').select('*').order('created_at', { ascending: false }); 
+        if (error) { 
+            commentsList.innerHTML = `<p class="text-center text-red-500">Tidak dapat memuat komentar. Cek kembali aturan (policy) di Supabase.</p>`; 
+            return; 
+        } 
+        if (data.length === 0) { 
+            commentsList.innerHTML = '<p class="text-center text-gray-500">Belum ada komentar. Jadilah yang pertama!</p>'; 
+            return; 
+        } 
+        commentsList.innerHTML = ''; 
+        data.forEach(commentData => { 
+            const div = document.createElement('div'); 
+            div.className = 'comment-box flex items-start space-x-4'; 
+            const firstLetter = (commentData.username || '').charAt(0).toUpperCase(); 
+            const timestamp = new Date(commentData.created_at); 
+            const dateString = new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(timestamp).replace('.',':'); 
+            const escapedUsername = (commentData.username || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); 
+            const escapedEmail = (commentData.email || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); 
+            const escapedComment = (commentData.comment || '').replace(/</g, "&lt;").replace(/>/g, "&gt;"); 
+            
+            // --- INI DIA PERBAIKAN UNTUK TEKS PANJANG ---
+            div.innerHTML = `
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center">
+                        <span class="text-sky-400 font-bold">${firstLetter}</span>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-baseline space-x-2">
+                            <p class="font-bold text-white break-words">${escapedUsername}</p>
+                            <p class="text-xs text-gray-500 hidden sm:block">${escapedEmail}</p>
+                        </div>
+                        <p class="text-xs text-gray-500 flex-shrink-0 ml-2">${dateString}</p>
+                    </div>
+                    <p class="mt-1 text-gray-300 break-words">${escapedComment}</p>
+                </div>`; 
+            commentsList.appendChild(div); 
+        }); 
+    }
+    
+    commentForm.addEventListener('submit', async (e) => { 
+        e.preventDefault(); 
+        submitButton.disabled = true; 
+        submitButton.textContent = 'Mengirim...'; 
+        const { error } = await supabase.from('comments').insert([{ 
+            email: document.getElementById('email').value.trim(), 
+            username: document.getElementById('username').value.trim(), 
+            comment: document.getElementById('comment').value.trim() 
+        }]); 
+        if (error) { 
+            alert('Gagal mengirim komentar: ' + error.message); 
+        } else { 
+            commentForm.reset(); 
+            loadComments(); 
+        } 
+        submitButton.disabled = false; 
+        submitButton.textContent = 'Kirim Komentar'; 
+    });
+    
     loadComments();
   </script>
 
 </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </html>
+</html>
