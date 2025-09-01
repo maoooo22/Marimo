@@ -1,0 +1,21 @@
+{
+  "name": "Portofolio Marimo",
+  "short_name": "Marimo",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "description": "Portofolio Web Developer Marimo.",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/q7Lz6h53/favicon-marimo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/q7Lz6h53/favicon-marimo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
