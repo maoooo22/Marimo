@@ -18,18 +18,11 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white">
-
     <div class="flex h-screen flex-col md:flex-row">
         <!-- Sidebar -->
         <aside class="hidden md:flex flex-col w-64 bg-gray-800 p-4 space-y-4">
-            <div class="flex items-center justify-between">
-                <span class="text-xl font-bold">Asisten AI</span>
-                <i class="fa-solid fa-robot text-sky-400"></i>
-            </div>
-            <button id="new-chat-button" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center transition-colors">
-                <i class="fa-solid fa-plus mr-2"></i>
-                Chat Baru
-            </button>
+            <div class="flex items-center justify-between"><span class="text-xl font-bold">Asisten AI</span><i class="fa-solid fa-robot text-sky-400"></i></div>
+            <button id="new-chat-button" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center transition-colors"><i class="fa-solid fa-plus mr-2"></i>Chat Baru</button>
             <div class="flex-grow overflow-y-auto"><p class="text-sm text-gray-400 mb-2">Riwayat</p><nav id="history-container" class="space-y-2"><p class="text-xs text-gray-500">Fitur riwayat sedang dikembangkan.</p></nav></div>
             <div class="border-t border-gray-700 pt-4"><a href="/" class="flex items-center p-2 hover:bg-gray-700 rounded-lg transition-colors"><div class="w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center font-bold text-white text-sm">M</div><span class="font-medium ml-3">Portofolio Marimo</span></a></div>
         </aside>
@@ -68,7 +61,6 @@
         let chatHistory = [];
         const systemPrompt = "Kamu adalah Asisten AI yang ramah, sedikit gaul, dan sangat membantu. Kamu berada di dalam website portofolio milik Marimo, seorang web developer muda dari Bekasi yang masih SMP. Tugasmu adalah menjawab pertanyaan pengunjung. Kamu tahu semua tentang Marimo berdasarkan konteks website ini (skill HTML, CSS, JS, Python, dan proyek NGL Bot & Bart Generator). Jawab selalu dalam Bahasa Indonesia.";
         
-        // ... (fungsi escapeHTML, addEventListener, addUserMessage, dll. tidak berubah) ...
         function escapeHTML(str) { const p = document.createElement('p'); p.appendChild(document.createTextNode(str || '')); return p.innerHTML.replace(/\n/g, '<br>'); }
         chatInput.addEventListener('input', () => { chatInput.style.height = 'auto'; chatInput.style.height = (chatInput.scrollHeight) + 'px'; submitButton.disabled = chatInput.value.trim() === ''; });
         chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); chatForm.requestSubmit(); } });
@@ -87,39 +79,39 @@
 
             chatHistory.push({ role: 'user', parts: [{ text: prompt }] });
             
-            // Sekarang kita panggil backend perantara kita
             const apiUrl = '/api/chat';
 
-            const payload = {
-                chatHistory,
-                systemPrompt
-            };
+            const payload = { chatHistory, systemPrompt };
 
             try {
-                // Kirim riwayat chat ke backend kita
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 
-                // Terima balasan dari backend kita
+                // Ambil respons dari backend, APA PUN ITU (sukses atau gagal)
                 const result = await response.json();
-                const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (!response.ok) {
+                    // Jika backend mengembalikan eror, tampilkan di chat
+                    throw new Error(result.error || `HTTP error! status: ${response.status}`);
+                }
                 
+                const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 document.querySelector('.ai-loading')?.remove();
 
                 if (aiResponse) {
                     addAIMessage(aiResponse);
                     chatHistory.push({ role: 'model', parts: [{ text: aiResponse }] });
                 } else {
-                    addAIMessage('Waduh, aku lagi bingung nih. Coba tanya yang lain dong.');
+                    addAIMessage('Waduh, AI-nya ngasih jawaban kosong. Aneh...');
                 }
             } catch (error) {
                 console.error("Gagal memanggil backend:", error);
                 document.querySelector('.ai-loading')?.remove();
-                addAIMessage('Sorry, bro. Kayaknya ada masalah koneksi ke server. Coba lagi bentar ya.');
+                // Tampilkan pesan eror langsung di chat
+                addAIMessage(`Waduh, ada masalah nih: ${error.message}`);
             }
             
             submitButton.disabled = false;
